@@ -1,2 +1,10 @@
-# ContainerOrchestration
-Container Orchestration Workshop
+
+
+
+
+# Practical Container Orchestration Workshop
+
+
+![ICP Logo](images/containerservice.png)
+
+
