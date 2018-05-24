@@ -506,7 +506,7 @@ Yours may be different. Open a Firefox browser window or tab and go to the URL o
 
 `kubectl describe all`
  
-Congratulations! You have deployed your first app to the IBM Cloud Private kubernetes cluster.
+Congratulations! You have deployed your first app to the IBM Cloud kubernetes cluster.
 
 
 # Task 5 : Scaling Apps with Kubernetes
@@ -617,10 +617,10 @@ Note that a pod could have multiple containers, in which case each container wil
 
 Run kubectl rollout status deployment/hello-world or kubectl get replicasets to check the status of the rollout. The rollout might occur so quickly that the following messages might not display:
 
-`kubectl rollout status deployment/hello-world`
+`kubectl rollout status deployment/hello1-deployment`
 
 ```
-=> kubectl rollout status deployment/hello-world
+=> kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
 Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
 Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
@@ -671,7 +671,7 @@ Create a new service:
 
 `kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080`
 
-`kubectl describe hello1-service`
+`kubectl describe service hello1-service`
 
 Test your new code :
 
@@ -693,7 +693,7 @@ This configuration script combines a few steps from the previous lesson to creat
 
 Update the details for the image in your private registry namespace:
 
-image: "mycluster.icp:8500/default/hello-world:2"
+image: "registry.eu-gb.bluemix.net/<namespace>/hello-world:2"
 
 > Note the HTTP liveness probe that checks the health of the container every five seconds.
 
@@ -716,12 +716,11 @@ Now that all the deployment work is done, check how everything turned out. You m
 
 Open a browser and check out the app. To form the URL, combine the IP with the NodePort that was specified in the configuration script. 
 
-
 In a browser, you'll see a success message. If you do not see this text, don't worry. This app is designed to go up and down.
 
 For the first 10 - 15 seconds, a 200 message is returned, so you know that the app is running successfully. After those 15 seconds, a timeout message is displayed, as is designed in the app.
 
-Launch your ICP dashboard:
+Launch your Kubernetes dashboard:
 
 In the Workloads tab, you can see the resources that you created. From this tab, you can continually refresh and see that the health check is working. In the Pods section, you can see how many times the pods are restarted when the containers in them are re-created. You might happen to catch errors in the dashboard, indicating that the health check caught a problem. Give it a few minutes and refresh again. You see the number of restarts changes for each pod.
 
@@ -729,7 +728,6 @@ Ready to delete what you created before you continue? This time, you can use the
 
 kubectl delete -f healthcheck.yml
 
-When you are done exploring the Kubernetes dashboard, in your CLI, enter CTRL+C to exit the proxy command.
 
 Congratulations! You deployed the second version of the app. You had to use fewer commands, learned how health check works, and edited a deployment, which is great! Lab 2 is now complete.
 
