@@ -1,9 +1,10 @@
-
+****
 
 
 
 <div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration Workshop - Prerequisites 
+Practical Container Orchestration  
+Prerequisites 
  </b></a></div>
 
 ---
@@ -30,7 +31,7 @@ Labs are running on the **IBM Cloud** (ex Bluemix).
 
 So before you can start any labs, you should have satisfied the following prerequisites :
 - [ ] You should have **1 valid email** 
-- [ ] Sign up to the **IBM Cloud** (ex Bluemix)
+- [ ] Sign up to the **IBM Cloud** 
 
 Here are some helpful steps :
 
@@ -64,7 +65,7 @@ Log in to IBM Cloud with your credentials :
 # Task 2. Apply a promo code (if necessary)
 
 Check if you can access to **Containers in Kubernetes Clusters**.
-To do so, click on **Catalog** and click on **Containers** on the left pane on the page :
+To do so, click on **Catalog** and click on **Containers** on the left pane of the page :
 
  
 ![Showing Containers](./images/showcontainers.png)
@@ -220,9 +221,9 @@ http://git-scm.com/download/win
 At some point during the installation, change to the **"Use Windows default console"** and continue the installation.
 ![Git for Windows](./images/git2.png)
 
-# Task 6. Install the bx command
-
-The IBM Cloud command line interface (CLI) provides a set of commands that are grouped by namespace for users to interact with IBM Cloud.
+# Task 6. Install the ibmcloud (ic) command
+****
+The **ibmcloud** command line interface (CLI) provides a set of commands that are grouped by namespace for users to interact with IBM Cloud. In previous versions, the name of that command was "bluemix" or "bx".
 
 For MacOS :
 https://clis.ng.bluemix.net/download/bluemix-cli/latest/osx
@@ -232,14 +233,14 @@ https://clis.ng.bluemix.net/download/bluemix-cli/latest/win64
 
 Then add some plugins. To do so, first add a repo of plugins :
 
-`bx plugin repo-plugins -r Bluemix`
+`ic plugin repo-plugins -r Bluemix`
 
-Then add the container-registry plugin :
+Then add the **container-registry** plugin :
 
-`bx plugin install container-registry -r Bluemix`
+`ic plugin install container-registry -r Bluemix`
 
 ```console
-bx plugin install container-registry -r Bluemix
+$ ic plugin install container-registry -r Bluemix
 Looking up 'container-registry' from repository 'Bluemix'...
 Plug-in 'container-registry 0.1.316' found in repository 'Bluemix'
 Attempting to download the binary file...
@@ -247,15 +248,15 @@ Attempting to download the binary file...
 30468064 bytes downloaded
 Installing binary...
 OK
-Plug-in 'container-registry 0.1.316' was successfully installed into /Users/phil/.bluemix/plugins/container-registry. Use 'bx plugin show container-registry' to show its details.
+Plug-in 'container-registry 0.1.316' was successfully installed into /Users/phil/.bluemix/plugins/container-registry. Use 'ic plugin show container-registry' to show its details.
 ```
 
-And the container-service plugin : 
+And then add the ** container-service** plugin : 
 
-`bx plugin install container-service -r Bluemix`
+`ic plugin install container-service -r Bluemix`
 
 ```console
-bx plugin install container-service -r Bluemix
+$ ic plugin install container-service -r Bluemix
 Looking up 'container-service' from repository 'Bluemix'...
 Plug-in 'container-service 0.1.316' found in repository 'Bluemix'
 Attempting to download the binary file...
@@ -263,15 +264,15 @@ Attempting to download the binary file...
 30468064 bytes downloaded
 Installing binary...
 OK
-Plug-in 'container-service 0.1.316' was successfully installed into /Users/phil/.bluemix/plugins/container-service. Use 'bx plugin show container-service' to show its details.
+Plug-in 'container-service 0.1.316' was successfully installed into /Users/phil/.bluemix/plugins/container-service. Use 'ic plugin show container-service' to show its details.
 ```
 
 Finally, list all plugin installed :
 
-`bx plugin list`
+`ic plugin list`
 
 ```console
-bx plugin list
+$ ic plugin list
 Listing installed plug-ins...
 
 Plugin Name          Version   
@@ -281,14 +282,14 @@ container-service    0.1.488
 
 # Task 7. Login to IBM Cloud
 
- Login to IBM Cloud with the bx command :
+ Login to IBM Cloud with the ic command :
  
- `bx login -a api.eu-gb.bluemix.net`
+ `ic login -a api.eu-gb.bluemix.net`
  
  And answer a few questions: email, password, account, 
  
  ```console 
- bx login -a api.eu-gb.bluemix.net
+$ ic login -a api.eu-gb.bluemix.net
 API endpoint: api.eu-gb.bluemix.net
 
 Email> philmetal@mail.com
@@ -309,24 +310,22 @@ Org:
 Space:               
 
 Tip: If you are managing Cloud Foundry applications and services
-- Use 'bx target --cf' to target Cloud Foundry org/space interactively, or use 'bx target -o ORG -s SPACE' to target the org/space.
-- Use 'bx cf' if you want to run the Cloud Foundry CLI with current IBM Cloud CLI context.
+- Use 'ic target --cf' to target Cloud Foundry org/space interactively, or use 'ic target -o ORG -s SPACE' to target the org/space.
+- Use 'ic cf' if you want to run the Cloud Foundry CLI with current IBM Cloud CLI context.
 
 ````
 
 And optionally, you can also specify the following ORG and SPACE with that command :
 
-`bx target -o philmetal@mail.com -s dev`
+`ic target -o philmetal@mail.com -s dev`
 
-> replace the organisation (-o) with your email (the default).
+> replace the organization (-o) with your email (the default).
 
 ```console
-bx target -o philmetal@mail.com -s dev
+$ ic target -o philmetal@mail.com -s dev
 Targeted org philmetal@mail.com
 
 Targeted space dev
-
-
                      
 API endpoint:     https://api.eu-gb.bluemix.net (API version: 2.92.0)   
 Region:           eu-gb   
@@ -341,7 +340,6 @@ Space:            dev
 
 
 
-
 # Task 8. Conclusion
 
 ###  Results
@@ -351,7 +349,7 @@ You finally went thru the following features :
 - [x] You applied a promo code
 - [x] You installed Docker on your laptop
 - [x] You installed Git
-- [x] You installed the bx command
+- [x] You installed the ic command
 - [x] You login to IBM Cloud successfully
 - [x] You are ready for the labs
 ---
@@ -359,5 +357,6 @@ You finally went thru the following features :
 ---
 
 <div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration Workshop - Prerequisites 
+Practical Container Orchestration  
+Prerequisites 
 </b></a></div>

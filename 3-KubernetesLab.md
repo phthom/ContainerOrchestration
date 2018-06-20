@@ -17,9 +17,9 @@ Table of Contents
 [[toc]]
 
 ---
-# Introduction to IBM Cloud Container Service
+# Introduction to IBM Cloud Kubernetes Service
 
-IBM Cloud Container Service combines Docker and Kubernetes to deliver powerful tools, an intuitive user experience, and built-in security and isolation to automate the deployment, operation, scaling, and monitoring of containerized apps over a cluster of independent compute hosts by using the Kubernetes APIs.
+IBM Cloud Kubernetes Service combines Docker and Kubernetes to deliver powerful tools, an intuitive user experience, and built-in security and isolation to automate the deployment, operation, scaling, and monitoring of containerized apps over a cluster of independent compute hosts by using the Kubernetes APIs.
 
 ## Docker containers
 
@@ -37,7 +37,7 @@ Every container is based on a Docker image and is considered to be an instance o
 
 **Registry**
 
-An image registry is a place where you store, retrieve, and share Docker images. Images that are stored in a registry can either be publicly available (public registry) or accessible by a small group of users only (private registry). IBM Cloud Container Service offers public images, such as ibmliberty that you can use to get started with Docker and Kubernetes to create your first containerized app in a cluster. When it comes to enterprise applications, use a private registry like the one provided in IBM Cloud to protect your images from being used and changed by unauthorized users. 
+An image registry is a place where you store, retrieve, and share Docker images. Images that are stored in a registry can either be publicly available (public registry) or accessible by a small group of users only (private registry). IBM Cloud Kubernetes Service offers public images, such as ibmliberty that you can use to get started with Docker and Kubernetes to create your first containerized app in a cluster. When it comes to enterprise applications, use a private registry like the one provided in IBM Cloud to protect your images from being used and changed by unauthorized users. 
 
 When you want to deploy a container from an image, you must make sure that the image is stored in either a public or private image registry.
 
@@ -70,9 +70,9 @@ A Kubernetes service groups a set of pods and provides network connection to the
 
 ![](./images/architecturek.png)
 
-With IBM Cloud Container Service, you can define complex architectures that implement resiliency, high availability and replication between data centers and regions (also called AZ – availability zones). See some examples below. In this lab, we are not going to implement such a complex environment. 
+With IBM Cloud Kubernetes Service, you can define complex architectures that implement resiliency, high availability and replication between data centers and regions (also called AZ – availability zones). See some examples below. In this lab, we are not going to implement such a complex environment. 
 
-# Task 1 : Creating your first cluster
+# Task 1 : Create your first cluster
 
 Kubernetes is an orchestration tool for scheduling app containers onto a cluster of compute machines. With Kubernetes, developers can rapidly develop highly available applications by using the power and flexibility of containers.
 
@@ -80,7 +80,7 @@ Before you can deploy an app by using Kubernetes, start by **creating a cluster*
 
 To create a lite cluster:
 
-## 1.  Select the IBM Container Service	
+## 1.  Select the IBM Kubernetes Service	
 
 From the Catalog, in the Containers category, click Containers in Kubernetes Cluster.
 
@@ -146,10 +146,10 @@ If you get an error, go to the PrepareLab.MD file to understand how to install d
 
 ### 2. Check that bx cs and bx cr have been installed
 
-`bx plugin list`
+`ic plugin list`
 
 ```console
-bx plugin list
+ic plugin list
 Listing installed plug-ins...
 
 Plugin Name          Version   
@@ -161,15 +161,15 @@ container-service    0.1.488
 
 **kubectl** is the command that controls Kubernetes objects and resources. This is just one exec file that you must put in the right library on your computer. 
 
-For complete functional compatibility, download the Kubernetes CLI version that matches the Kubernetes cluster version you plan to use. The current IBM Cloud Container Service default Kubernetes version is 1.9.7
+For complete functional compatibility, download the Kubernetes CLI version that matches the Kubernetes cluster version you plan to use. The current IBM Cloud Kubernetes Service default Kubernetes version is 1.9.7
 
 Download the kubectl file for your laptop:
 
-OS X: https://storage.googleapis.com/kubernetes-release/release/v1.9.7/bin/darwin/amd64/kubectl  
+OS X: https://storage.googleapis.com/kubernetes-release/release/v1.9.8/bin/darwin/amd64/kubectl  
 
-Linux: https://storage.googleapis.com/kubernetes-release/release/v1.9.7/bin/linux/amd64/kubectl
+Linux: https://storage.googleapis.com/kubernetes-release/release/v1.9.8/bin/linux/amd64/kubectl
   
-Windows: https://storage.googleapis.com/kubernetes-release/release/v1.9.7/bin/windows/amd64/kubectl.exe  
+Windows: https://storage.googleapis.com/kubernetes-release/release/v1.9.8/bin/windows/amd64/kubectl.exe  
 
 **OS X or Linux**, complete the following steps.
 
@@ -203,32 +203,36 @@ type the following command :
 
 `kubectl version short`
 
-And you should get version 1.9.7:
+And you should get version 1.9.8 :
 
 ```console 
-kubectl version short
-Client Version: version.Info{Major:"1", Minor:"9", GitVersion:"v1.9.7", GitCommit:"dd5e1a2978fd0b97d9b78e1564398aeea7e7fe92", GitTreeState:"clean", BuildDate:"2018-04-19T00:05:56Z", GoVersion:"go1.9.3", Compiler:"gc", Platform:"darwin/amd64"}
+$ kubectl version --short
+Client Version: v1.9.8
 error: You must be logged in to the server (the server has asked for the client to provide credentials)
 ````
 The error at the end is normal because we need to specify how to connect to the master. 
 
 ### 5. Gain access to the cluster
 
-Log in to your IBM Cloud account.
+Log into your IBM Cloud account if no already logged in.
 
-```console
-bx login -a https://api.eu-gb.bluemix.net
-bx cs region-set uk-south
-```
+`ic login -a https://api.eu-gb.bluemix.net`
 
-Set the context for the cluster in in your CLI.
+> don't forget to `ic target -o ORG -s SPACE` where ORG is your email and SPACE is dev.
 
-`bx cs cluster-config mycluster`
+Then go to your Cluster Region :
+
+`ic cs region-set uk-south`
+
+
+Set the context for the cluster in your CLI.
+
+`ic cs cluster-config mycluster`
 
 Here is the output:
 
 ```console
-bx cs cluster-config mycluster
+$ ic cs cluster-config mycluster
 OK
 The configuration for mycluster was downloaded successfully. Export environment variables to start using Kubernetes.
 
@@ -246,12 +250,11 @@ export KUBECONFIG=/Users/phil/.bluemix/plugins/container-service/clusters/myclus
  The output should be :
  
  ```console 
- kubectl get nodes
+$ kubectl get nodes
 NAME            STATUS    ROLES     AGE       VERSION
-10.144.187.96   Ready     <none>    46m       v1.9.7-2+231cc32d0a1119
+10.144.186.74   Ready     <none>    11m       v1.9.8-2+af27ab4b096122
 ````
-
-### YOU ARE NOW CONNECTED TO YOUR CLUSTER
+**YOU ARE NOW CONNECTED TO YOUR CLUSTER**
 
 # Task 3 : Creating a private registry
 
@@ -261,10 +264,10 @@ Set up your own private image repository in IBM Cloud Container Registry to secu
 
 We choose a unique name as our namespace to group all images in our account. Replace <your_namespace> with a namespace of your choice and not something that is related to the tutorial.
 
-`bx cr namespace-add <my_namespace>`
+`ic cr namespace-add <my_namespace>`
 
 ```console
-bx cr namespace-add imgreg        
+$ ic cr namespace-add imgreg        
 Adding namespace 'imgreg'...
 Successfully added namespace 'imgreg'
 OK
@@ -272,11 +275,11 @@ OK
 
 Now login to the IBM Cloud registry:
 
-`bx cr login`
+`ic cr login`
 
 Output:
 ```console 
-bx cr login
+$ ic cr login
 Logging in to 'registry.eu-gb.bluemix.net'...
 Logged in to 'registry.eu-gb.bluemix.net'.
 
@@ -295,11 +298,11 @@ To test our new private registry, do the following steps:
 
 3. push your image in the private registry
 
-`docker push registry.ng.bluemix.net/<my_namespace>/hello-world:latest`
+`docker push registry.eu-gb.bluemix.net/<my_namespace>/hello-world:latest`
 
 4. List the images in the private registry
 
-`bx cr image-list`
+`ic cr image-list`
 
 ![](./images/privateregistry.png)
 
@@ -310,9 +313,9 @@ To test our new private registry, do the following steps:
 Output is:
 
 ```console
-kubectl version --short
-Client Version: v1.9.7
-Server Version: v1.9.7-2+231cc32d0a1119
+$ kubectl version --short
+Client Version: v1.9.8
+Server Version: v1.9.8-2+af27ab4b096122
 ```
 As you can see, it is another way to see that we are connected to the server.
 
@@ -334,7 +337,7 @@ If you get an error message like "error: You must be logged in to the server (Un
 
 **Create a directory** on your computer and move to that directory.
 
-Get and download this github directory:
+Get and download this github repository into that directory :
 
 `git clone https://github.com/IBM/container-service-getting-started-wt.git`
 	
@@ -353,7 +356,7 @@ Build the image locally and tag it with the name that you want to use on the  ku
 Output is:
 
 ```console
-docker build -t registry.eu-gb.bluemix.net/imgreg/hello1 .
+$ docker build -t registry.eu-gb.bluemix.net/imgreg/hello1 .
 Sending build context to Docker daemon  15.36kB
 Step 1/6 : FROM node:9.4.0-alpine
  ---> b5f94997f35f
@@ -383,7 +386,7 @@ To see the image, use the following command:
 Example:
  
  ```console
- docker images registry.eu-gb.bluemix.net/imgreg/hello1:latest
+$ docker images registry.eu-gb.bluemix.net/imgreg/hello1:latest
 REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
 registry.eu-gb.bluemix.net/imgreg/hello1   latest              51c706fdc0c1        2 months ago        74.1MB
  ```
@@ -393,12 +396,12 @@ registry.eu-gb.bluemix.net/imgreg/hello1   latest              51c706fdc0c1     
 Push your image into the private registry :
 
     
-`docker push registry.eu-gb.bluemix.net/<namespace>/hello1.latest`
+`docker push registry.eu-gb.bluemix.net/<namespace>/hello1:latest`
  
  Your output should look like this.
 
 ```console
-docker push registry.eu-gb.bluemix.net/imgreg/hello1
+$ docker push registry.eu-gb.bluemix.net/imgreg/hello1
 The push refers to repository [registry.eu-gb.bluemix.net/imgreg/hello1]
 57eebb8b0417: Pushed 
 05e20323e508: Layer already exists 
@@ -409,7 +412,7 @@ d200459bdbd0: Layer already exists
 latest: digest: sha256:4d754d9b243818185bb18a5b25f41bf1a2eb3ea7ad3efcdafbe1b204664b56f7 size: 1576
 ```
 
-> **IMPORTANT** : be sure that all the layers have been pushed and that you see the digest line.
+> **IMPORTANT** : be sure that all the layers have been pushed, wait for the digest line.
 
 
 ### 5. Open the Kubernetes Console
@@ -423,7 +426,12 @@ Then select **"mycluster"** to see the Kubernetes Cluster details.
 
 ![image list](images/ClusterDet.png)
 
-On the right part of the screen, **click the blue button : Kubernetes Dashboard**
+> Now go to the Worker Nodes section (on the left pane) and **take a note** of the **public IP of that worker node** :
+
+![image list](images/publicip.png)
+
+
+On the right part of the screen, **click the blue button** : Kubernetes Dashboard
 
 ![deploy](images/kdash.png)
 
@@ -431,21 +439,25 @@ You can look around in the dashboard to see all the different resources (pods, n
 
 
 
-### 6. Use your image to create a kubernetes deployment with the following command.
+### 6. Run a deployment
+
+Use your image to create a kubernetes deployment with the following command.
 
 `kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/<namespace>/hello1`
   
 Output is :
 
 ```console
- kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/imgreg/hello1
+$ kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/imgreg/hello1
 deployment "hello1-deployment" created
 ```
 You can also look at the dashboard to see the deployment:
 
 ![expose service](images/deployk.png)
 
-### 7. Create a service to access your running container using the following command.
+### 7. Create a service 
+
+Create a service to access your running container using the following command.
 
 `kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080`
  
@@ -453,7 +465,7 @@ You can also look at the dashboard to see the deployment:
 Your output should be:
 
 ```console
-kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080
+$ kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080
 service "hello1-service" exposed
 ```
 
@@ -462,7 +474,9 @@ And you can also go to the dashboard :
 ![expose service](images/servicek.png)
 
 
-### 8. With the NodePort type of service, the kubernetes cluster creates a 5-digit port number to access the running container through the service. 
+### 8. NodePort type
+
+With the NodePort type of service, the kubernetes cluster creates a 5-digit port number to access the running container through the service. 
 
 The service is accessed through the IP address of the proxy node with the NodePort port number. To discover the NodePort number that has been assigned, use the following command.
 
@@ -471,7 +485,7 @@ The service is accessed through the IP address of the proxy node with the NodePo
  Your output should look like this.
 
 ```console
- kubectl describe service hello1-service
+$ kubectl describe service hello1-service
 Name:                     hello1-service
 Namespace:                default
 Labels:                   run=hello1-deployment
@@ -490,23 +504,25 @@ Events:                   <none>
 
 Or look at the dashboard:
 
- ![Describe](images/describek.png)
+![Describe](images/describek.png)
  
  
 
 
-### 9. In this example, the NodePort number is `32509`. 
+### 9. The NodePort number is `32509`. 
 
 Yours may be different. Open a Firefox browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
 
- ![Helloworld](images/browser1.png)
+![Helloworld](images/browser1.png)
  
 
-### 10. You can view much of the information on your cluster resources visually through the Kubernetes console.  As an alternative, you can obtain text-based information on all the resources running in your cluster using the following command.
+### 10. Describe subcommand
+
+You can view much of the information on your cluster resources visually through the Kubernetes console.  As an alternative, you can obtain text-based information on all the resources running in your cluster using the following command.
 
 `kubectl describe all`
  
-Congratulations! You have deployed your first app to the IBM Cloud kubernetes cluster.
+Congratulations ! You have deployed your first app to the IBM Cloud kubernetes cluster.
 
 
 # Task 5 : Scaling Apps with Kubernetes
@@ -542,7 +558,7 @@ kubectl provides a scale subcommand to change the size of an existing deployment
 
 Here is the result:
 ```console
-kubectl scale --replicas=10 deployment hello1
+$ kubectl scale --replicas=10 deployment hello1-deployment
 deployment "hello1-deployment" scaled
 ```
 
@@ -567,15 +583,16 @@ Waiting for rollout to finish: 9 of 10 updated replicas are available...
 deployment "hello1-deployment" successfully rolled out
 ````
 
-Once the rollout has finished, ensure your pods are running by using: kubectl get pods.
-
-You should see output listing 10 replicas of your deployment:
+Once the rollout has finished, ensure your pods are running by using: 
 
 `kubectl get pods`
 
-Here is the result:
+You should see output listing 10 replicas of your deployment:
+
+
+Results :
 ```
-kubectl get pods
+$ kubectl get pods
 NAME                                 READY     STATUS    RESTARTS   AGE
 hello1-deployment-864cd87c7f-675sr   1/1       Running   0          5m
 hello1-deployment-864cd87c7f-6wxkp   1/1       Running   0          3m
@@ -620,7 +637,7 @@ Run kubectl rollout status deployment/hello-world or kubectl get replicasets to 
 `kubectl rollout status deployment/hello1-deployment`
 
 ```
-=> kubectl rollout status deployment/hello1-deployment
+$ kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
 Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
 Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
@@ -661,7 +678,7 @@ Finally, use that command to see the result:
 `kubectl get replicasets`
 
 ```
- kubectl get replicasets
+$ kubectl get replicasets
 NAME                           DESIRED   CURRENT   READY     AGE
 hello1-deployment-864cd87c7f   0         0         0         23m
 hello1-deployment-d7cb4bfcf    10        10        10        2m
@@ -718,7 +735,7 @@ Open a browser and check out the app. To form the URL, combine the IP with the N
 
 In a browser, you'll see a success message. If you do not see this text, don't worry. This app is designed to go up and down.
 
-For the first 10 - 15 seconds, a 200 message is returned, so you know that the app is running successfully. After those 15 seconds, a timeout message is displayed, as is designed in the app.
+For the first 25-30 seconds, a 200 message is returned, so you know that the app is running successfully. After those 15 seconds, a timeout message is displayed, as is designed in the app.
 
 Launch your Kubernetes dashboard:
 
@@ -726,10 +743,12 @@ In the Workloads tab, you can see the resources that you created. From this tab,
 
 Ready to delete what you created before you continue? This time, you can use the same configuration script to delete both of the resources you created.
 
-kubectl delete -f healthcheck.yml
+`kubectl delete -f healthcheck.yml`
 
 
-Congratulations! You deployed the second version of the app. You had to use fewer commands, learned how health check works, and edited a deployment, which is great! Lab 2 is now complete.
+Congratulations! You deployed the second version of the app. You had to use fewer commands, learned how health check works, and edited a deployment, which is great! 
+
+Lab 2 is now complete.
 
 
 

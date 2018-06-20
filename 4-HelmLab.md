@@ -29,15 +29,6 @@ During this lab, we are going to install a helm client and configure it. Then we
 Charts are easy to create, version, share, and publish — so start using Helm and stop the copy-and-paste madness.
 
 
-Table of Contents
-
----
-
-[[toc]]
-
----
-
-
 # Task 1: Helm Setup
 
 
@@ -50,13 +41,13 @@ Use the kubectl command to check that you are connected:
 `kubectl get nodes`
 
 
-If you get an error, go back to the **PrepareLab** and check the instructions to gain access to the cluster.
+If you get an error, go back to the **PrepareLab** and check the instructions to **gain access** to the cluster.
 
 
-## 2. Install helm tool
+## 2. What is the helm tool
 
-Helm is a client/server application : Helm client and Tiller server. 
-Before we can run any chart with helm, we should proceed to some installation and change. 
+Helm is a client/server application : **Helm** client and **Tiller** server. 
+Before we can run any chart with helm, we should proceed to some installation and configuration. 
    
 ## 3. Download the Helm client
 
@@ -81,7 +72,7 @@ https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-windows-amd64.zip
 ```
 Unzip that file.
 
-Move the executable file helm.exe to a directory that is available in your path like "C:\Program Files\IBM\Bluemix\bin"
+Move the executable file helm.exe to a directory that is available in your path like "C:\Program Files\"
 
 ## 4. Configure a RBAC role
 
@@ -121,7 +112,7 @@ Create the service account and cluster role binding.
 Results:
 
 ```console
-kubectl create -f rbac-config.yaml
+$ kubectl create -f rbac-config.yaml
 serviceaccount "tiller" created
 clusterrolebinding "tiller" created
 ```
@@ -137,7 +128,7 @@ Initialize Helm and install tiller with the service account that you created.
 Results:
 
 ```console 
-helm init --service-account tiller
+$ helm init --service-account tiller
 $HELM_HOME has been configured at /Users/phil/.helm.
 
 Tiller (the Helm server-side component) has been installed into your Kubernetes Cluster.
@@ -153,7 +144,7 @@ Verify that the tiller-deploy pod has a Status of Running in your cluster.
 Results:
 
 ```console
-kubectl get pods -n kube-system -l app=helm
+$ kubectl get pods -n kube-system -l app=helm
 NAME                           READY     STATUS    RESTARTS   AGE
 tiller-deploy-75f5797b-sxmrq   1/1       Running   0          4m
 ```
@@ -163,12 +154,12 @@ tiller-deploy-75f5797b-sxmrq   1/1       Running   0          4m
 
 Add the IBM Cloud Helm repository to your Helm instance.
 
-` helm repo add ibm  https://registry.bluemix.net/helm/ibm` 
+`helm repo add ibm  https://registry.bluemix.net/helm/ibm` 
 
 Results:
 
 ```console
-helm repo add ibm  https://registry.bluemix.net/helm/ibm
+$ helm repo add ibm  https://registry.bluemix.net/helm/ibm
 "ibm" has been added to your repositories
 ```
 
@@ -182,7 +173,7 @@ Check the helm version:
 
 Results:
 ```console
-helm version --short
+$ helm version --short
 Client: v2.9.1+g20adb27
 Server: v2.9.1+g20adb27
 ```
@@ -194,12 +185,12 @@ Server: v2.9.1+g20adb27
 
 For the next exercise, we need to get access to  your private registry. To do so,  login to the private registry:
 
-`bx cr login`
+`ic cr login`
 
 Results:
 
 ```console
-bx cr login 
+$ ic cr login 
 Logging in to 'registry.eu-gb.bluemix.net'...
 Logged in to 'registry.eu-gb.bluemix.net'.
 
@@ -233,7 +224,7 @@ In this command, package_name is the name for the package, and package_in_repo i
 Results:
 
 ```console
-helm install --name=my-wordpress stable/wordpress      
+$ helm install --name=my-wordpress stable/wordpress      
 NAME:   my-wordpress
 LAST DEPLOYED: Mon May 21 00:52:04 2018
 NAMESPACE: default
@@ -282,14 +273,15 @@ my-wordpress-wordpress-6b57cb6c85-m27m6  0/1    Pending  0         1s
  my-wordpress        1           Wed Jun 28 22:15:13 2017    DEPLOYED    wordpress-0.6.5    default
  ```
  
- You can also look at the Kubernetes Dashboard to see if the deployment was successfull.
+ You can also look at the Kubernetes Dashboard to see if the deployment was successful (DEPLOYED).
+ Even if the deployment was successful, you still have to check that your application is running fine (in that case, a volume claim is requested and the application is not running fine).
  
 ## 5. Delete the package
 
 `helm delete my-wordpress --purge`
 
 ```
-helm delete my-wordpress --purge
+$ helm delete my-wordpress --purge
 release "my-wordpress" deleted
 ```
 
@@ -315,7 +307,7 @@ hello-world:2 .`
 Result:
 
 ```console
-docker images registry.eu-gb.bluemix.net/imgreg/hello-world:2
+$ docker images registry.eu-gb.bluemix.net/imgreg/hello-world:2
 REPOSITORY                                      TAG                 IMAGE ID            CREATED             SIZE
 registry.eu-gb.bluemix.net/imgreg/hello-world   2                   e8fea84576b2        5 weeks ago         74.1MB
 
@@ -411,11 +403,7 @@ Inspect the directory tree:
 ![create tree](./images/treehelm.png)
 
 
-`nano values.yaml`
-
-or
-
-`notepad values.yaml`
+`nano values.yaml` or `notepad values.yaml`
 
 Look at **values.yaml** and **modify it**. Prepare to deploy **3** replicas of the nginx image. Replace the service section and choose a port (like 30073 for instance) with the following code:
 
@@ -484,11 +472,7 @@ affinity: {}
 
 Review **deployment template** : 
 
-`nano ./templates/deployment.yaml`
-
-or 
-
-`notepad ./templates/deployment.yaml`
+`nano ./templates/deployment.yaml` or  `notepad ./templates/deployment.yaml`
 
 Don't change anything.
 
@@ -549,11 +533,7 @@ spec:
 
 Review the **service template**: 
 
-`nano ./templates/service.yaml`
-
-or 
-
-`notepad ./templates/service.yaml`
+`nano ./templates/service.yaml` or  `notepad ./templates/service.yaml`
 
 Change the **-port section** with the following code:
 
@@ -606,12 +586,12 @@ The helm chart that we created in the previous section that has been verified ca
 We are now going to define a new namespace in the mycluster.
 This namespace can be seen as a **virtual partition** in the cluster. 
 
-`kubectl create namespace`
+`kubectl create namespace training`
 
 Results :
 
 ```console
-kubectl create namespace training
+$ kubectl create namespace training
 namespace "training" created
 ```
 
@@ -619,13 +599,13 @@ namespace "training" created
 ## 2. Install the chart to the training namespace
 
 Type the following command and don't forget the dot at the end.
-First check you are still in the **hellonginx directory**
+First check you are still in the **hellonginx** directory.
 
 `helm install --name hellonginx --namespace training .`
 
 Results:
 ```console
-helm install --name hellonginx --namespace training .
+$ helm install --name hellonginx --namespace training .
 NAME:   hellonginx
 LAST DEPLOYED: Tue May 22 10:46:32 2018
 NAMESPACE: training
@@ -657,12 +637,12 @@ At the end of the output of that command, you will see 3 lines that you can norm
 
 We are going to use another method :
 
-`bx cs workers mycluster`
+`ic cs workers mycluster`
 
 Results :
 
 ```console
-bx cs workers mycluster
+$ ic cs workers mycluster
 OK
 
 ID                                                 Public IP         Private IP      Machine Type   State    Status   Zone    Version   
@@ -684,7 +664,7 @@ Try this url and get the nginx hello:
 Results:
 
 ```console
-helm list
+$ helm list
 
 NAME      	REVISION	UPDATED                 	STATUS  	CHART           	NAMESPACE
 hellonginx	1       	Tue May 22 10:46:32 2018	DEPLOYED	hellonginx-0.1.0	training 
@@ -696,7 +676,7 @@ hellonginx	1       	Tue May 22 10:46:32 2018	DEPLOYED	hellonginx-0.1.0	training
 `kubectl get deployments --namespace=training`
 
 ```console
-kubectl get deployments --namespace=training
+$ kubectl get deployments --namespace=training
 
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 hellonginx   3         3         3            3           20m
@@ -706,8 +686,9 @@ hellonginx   3         3         3            3           20m
 
 `kubectl get services --namespace=training`
 
+**Results**
 ```console
-kubectl get services --namespace=training
+$ kubectl get services --namespace=training
 
 NAME         TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 hellonginx   NodePort   172.21.132.143   <none>        80:30073/TCP   23m
@@ -720,9 +701,8 @@ Locate the line port 80:300073.
 `kubectl get pods --namespace=training`
 
 **Results**
-
 ```console
-kubectl get pods --namespace=training
+$ kubectl get pods --namespace=training
 
 NAME                          READY     STATUS    RESTARTS   AGE
 hellonginx-6bcd9f4578-7ps7l   1/1       Running   0          21m
@@ -743,9 +723,8 @@ Save the file and type the following command :
 `helm  upgrade hellonginx .`
 
 **Results**
-
 ```console
-helm  upgrade hellonginx .
+$ helm  upgrade hellonginx .
 Release "hellonginx" has been upgraded. Happy Helming!
 LAST DEPLOYED: Tue May 22 11:13:43 2018
 NAMESPACE: training
@@ -775,7 +754,6 @@ hellonginx-6bcd9f4578-vnx5g  1/1    Running            0         27m
 # Congratulations
 
 You successfully created and managed charts to deploy applications on the IBM Cloud. 
-
 
 ---
 

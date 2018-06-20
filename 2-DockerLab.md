@@ -1,6 +1,7 @@
 <div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
 Practical Container Orchestration 
-Docker Lab
+
+ Docker Lab
  </b></a></div>
 
  ---
@@ -21,18 +22,22 @@ This set of instructions requires that docker is already installed and docker co
 
 
 
-### 1. Launch a shell or a command line and confirm that docker is installed.
-   
-   The version number isn't particularly important.
-   However, you can see both the client (CLI) and the server (engine).
+### 1. Check Docker version
 
-  `docker version`
+Launch a shell or a command line and confirm that docker is installed.
+   
+The version number isn't particularly important.
+However, you can see both the client (CLI) and the server (engine).
+
+`docker version`
   
-  ![Docker Version](./images/docker version.png)
+![Docker Version](./images/docker version.png)
   
-  If you receive an error then go back to the "PrepareLab.md" document to install Docker on your system. 
+If you receive an error then go back to the "PrepareLab.md" document to install Docker on your system. 
   
-### 2. As with all new computer things, it is obligatory that we start with "hello-world"
+### 2. Run your first container
+
+As with all new computer things, it is obligatory that we start with "hello-world"
 
 `docker run hello-world`
 
@@ -40,7 +45,9 @@ This set of instructions requires that docker is already installed and docker co
 
  > Notice the message `Unable to find image 'hello-world:latest' locally` First you see that the image was automatically downloaded without any additional commands. Second the version `:latest` was added to the name of the image. We did not specify a version for this image.
 
-### 3. Rerun "hello-world". Notice that the image is not pulled down again. It already exists locally, so it is run.
+### 3. Rerun "hello-world". 
+
+Notice that the image is not pulled down again. It already exists locally, so it is run.
 
 `docker run hello-world`
 
@@ -61,9 +68,11 @@ Go to `https://hub.docker.com/_/hello-world/` and you can read about this image.
 ![dockerHub](./images/dockerhubhello.png) 
 
 
-### 6. This image is a typical image. When an image is run it usually continues to run. 
+### 6. Container
 
-The running image is called a container. Let us run a more typical image; this image contains the noSQL database "couchDB".
+This image is a typical image. When an image is run it usually continues to run. 
+
+The running image is called a **container**. Let us run a more typical image; this image contains the noSQL database "couchDB".
 
 `docker run -d couchdb`
 
@@ -80,7 +89,9 @@ Notice only the first part of that long hex id is displayed. Typically this is m
 ![docker ps](./images/multipledb2.png)
   
 
-### 8. An image can be run multiple times. Launch another container for the couchdb image.
+### 8. An image can be run multiple times. 
+
+Launch another container for the couchdb image.
 
 `docker run -d couchdb`
     
@@ -343,5 +354,6 @@ Congratulations, you have successfully completed this Containers lab!.  You've j
 
 <div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
 Practical Container Orchestration 
+
 Docker Lab
  </b></a></div>
