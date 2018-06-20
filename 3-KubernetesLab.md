@@ -149,7 +149,7 @@ If you get an error, go to the PrepareLab.MD file to understand how to install d
 `ic plugin list`
 
 ```console
-ic plugin list
+$ ic plugin list
 Listing installed plug-ins...
 
 Plugin Name          Version   
@@ -569,7 +569,8 @@ To see your changes being rolled out, you can run:
 `kubectl rollout status deployment/hello1-deployment`
 
 The rollout might occur so quickly that the following messages might not display:
-```
+
+```console
 $ kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 1 of 10 updated replicas are available...
 Waiting for rollout to finish: 2 of 10 updated replicas are available...
@@ -591,7 +592,7 @@ You should see output listing 10 replicas of your deployment:
 
 
 Results :
-```
+```console
 $ kubectl get pods
 NAME                                 READY     STATUS    RESTARTS   AGE
 hello1-deployment-864cd87c7f-675sr   1/1       Running   0          5m
@@ -636,7 +637,7 @@ Run kubectl rollout status deployment/hello-world or kubectl get replicasets to 
 
 `kubectl rollout status deployment/hello1-deployment`
 
-```
+```console
 $ kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
 Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
@@ -677,7 +678,7 @@ Finally, use that command to see the result:
 
 `kubectl get replicasets`
 
-```
+```console
 $ kubectl get replicasets
 NAME                           DESIRED   CURRENT   READY     AGE
 hello1-deployment-864cd87c7f   0         0         0         23m
@@ -714,7 +715,7 @@ image: "registry.eu-gb.bluemix.net/<namespace>/hello-world:2"
 
 > Note the HTTP liveness probe that checks the health of the container every five seconds.
 
-```
+```console
 livenessProbe:
             httpGet:
               path: /healthz
