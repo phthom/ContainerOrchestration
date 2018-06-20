@@ -364,7 +364,7 @@ Inspect that file :
 
 Review the **service's manifest**
 
-```
+```console
 apiVersion: v1
 kind: Service
 metadata:
@@ -476,7 +476,7 @@ Review **deployment template** :
 
 Don't change anything.
 
-```
+```console
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -547,7 +547,7 @@ Change the **-port section** with the following code:
 
 So the service should look as follows:
 
-```
+```console
 apiVersion: v1
 kind: Service
 metadata:
