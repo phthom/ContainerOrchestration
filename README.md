@@ -1,7 +1,4 @@
 
-
-
-
 # Practical Container Orchestration Workshop
 
 
