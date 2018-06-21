@@ -1,17 +1,36 @@
-<div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration 
 
- Docker Lab
- </b></a></div>
-
- ---
+# Practical Container Orchestration 
+---
+# Docker Labs
+---
  
 ![Docker Logo](./images/docker2.png)
- 
- ---
 
-# Docker Lab
 
+## Table of Contents
+
+  * [Prerequisites](#prerequisites)
+  * [Lab1 - Working with Docker](#lab1---working-with-docker)
+    + [1. Check Docker version](#1-check-docker-version)
+    + [2. Run your first container](#2-run-your-first-container)
+    + [3. Rerun "hello-world".](#3-rerun--hello-world-)
+    + [4.  `docker images` will show us that image.](#4---docker-images--will-show-us-that-image)
+    + [5. From where was the `hello-world` image pulled?](#5-from-where-was-the--hello-world--image-pulled-)
+    + [6. Container](#6-container)
+    + [7. Here's how you would see the running container.](#7-here-s-how-you-would-see-the-running-container)
+    + [8. An image can be run multiple times.](#8-an-image-can-be-run-multiple-times)
+    + [9. Now we have two containers running the couchdb database.](#9-now-we-have-two-containers-running-the-couchdb-database)
+    + [10. The containers look similar, but they have unique names and unique ids.](#10-the-containers-look-similar--but-they-have-unique-names-and-unique-ids)
+    + [11. Stop the other container and see what is running.](#11-stop-the-other-container-and-see-what-is-running)
+    + [12. Notice the image still exists.](#12-notice-the-image-still-exists)
+    + [13. Did you forget about the hello-world image?](#13-did-you-forget-about-the-hello-world-image-)
+    + [14. Oops, we can't delete that image until we delete the "couchdb" container.](#14-oops--we-can-t-delete-that-image-until-we-delete-the--couchdb--container)
+    + [15. Delete the couchdb container, delete the couchdb image, and make sure it is gone. You can leave hello-world.](#15-delete-the-couchdb-container--delete-the-couchdb-image--and-make-sure-it-is-gone-you-can-leave-hello-world)
+  * [Lab 2: Building Docker Images](#lab-2--building-docker-images)
+    + [1. Our First Dockerfile](#1-our-first-dockerfile)
+    + [2. Building a web server](#2-building-a-web-server)
+  * [Conclusion](#conclusion)
+    
 
 ## Prerequisites
 This set of instructions requires that docker is already installed and docker commands can be run from a bash shell or a command line. You can get more information at the [Docker website](https://www.docker.com/get-docker)
@@ -322,6 +341,10 @@ cat: can't open 'somefile.txt': No such file or directory
 
 You get the point?
 
+
+### 2. Building a web server
+
+
 Now, let us look at another Dockerfile shown below:
 
 ```console
@@ -349,11 +372,8 @@ Go to you favorite internet browser and enter the following URL:
 Congratulations, you have successfully completed this Containers lab!.  You've just deployed your first Docker-based web app on IBM Cloud Private!  In this lab, you learned how to tag and push local images to IPC, inspect pushed images for security vulnerabilities, and run hosted multi-container applications on IBM Containers.
 
 
-### End of the lab
 ---
-
-<div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration 
-
-Docker Lab
- </b></a></div>
+# End of the lab
+---
+# Practical Container Orchestration 
+---

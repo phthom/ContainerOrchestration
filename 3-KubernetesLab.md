@@ -1,22 +1,27 @@
 
-<div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration
-
-Kubernetes Lab
- </b></a></div>
-
+# Practical Container Orchestration 
+---
+# Kubernetes Lab
+---
 
 ![kube2](images/kube2.png)
 
----
+## Table of Contents
 
-Table of Contents
+- [Task 1. IBM Cloud registration](#task-1-ibm-cloud-registration)
+    + [Sign in to IBM Cloud](#sign-in-to-ibm-cloud)
+    + [Fill in the form](#fill-in-the-form)
+    + [Confirm your registration to IBM Cloud from your inbox](#confirm-your-registration-to-ibm-cloud-from-your-inbox)
+- [Task 2. Apply a promo code (if necessary)](#task-2-apply-a-promo-code--if-necessary-)
+- [Task 3. Install Docker CE on your Mac](#task-3-install-docker-ce-on-your-mac)
+- [Task 4. Install Docker CE on Windows](#task-4-install-docker-ce-on-windows)
+- [Task 5. Install Git on your laptop](#task-5-install-git-on-your-laptop)
+- [Task 6. Install the ibmcloud (ic) command](#task-6-install-the-ibmcloud--ic--command)
+- [Task 7. Login to IBM Cloud](#task-7-login-to-ibm-cloud)
+- [Task 8. Conclusion](#task-8-conclusion)
+    + [Results](#results)
+- [End of Prerequisites](#end-of-prerequisites)
 
----
-
-[[toc]]
-
----
 # Introduction to IBM Cloud Kubernetes Service
 
 IBM Cloud Kubernetes Service combines Docker and Kubernetes to deliver powerful tools, an intuitive user experience, and built-in security and isolation to automate the deployment, operation, scaling, and monitoring of containerized apps over a cluster of independent compute hosts by using the Kubernetes APIs.
@@ -753,15 +758,8 @@ Lab 2 is now complete.
 
 
 
+---
 # End of the lab
-
 ---
-
-<div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration 
-
-Kubernetes Lab
- </b></a></div>
-
+# Practical Container Orchestration 
 ---
-‚

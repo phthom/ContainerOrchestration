@@ -1,24 +1,50 @@
 
 
 
-<div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration
 
-Helm Lab
- </b></a></div>
-
+# Practical Container Orchestration 
 ---
+# Helm lab
+---
+
 ![helmlogo2](images/helmlogo2.png)
 
 ---
 
-Table of Contents
+## Table of Contents
 
----
-
-[[toc]]
-
----
+- [Task 1: Helm Setup](#task-1--helm-setup)
+  * [1. Connect to the Kubernetes Cluster](#1-connect-to-the-kubernetes-cluster)
+  * [2. What is the helm tool](#2-what-is-the-helm-tool)
+  * [3. Download the Helm client](#3-download-the-helm-client)
+    + [MacOS](#macos)
+    + [Windows](#windows)
+  * [4. Configure a RBAC role](#4-configure-a-rbac-role)
+  * [5. Initialize Helm & Tiller](#5-initialize-helm---tiller)
+  * [6. Add a helm repo](#6-add-a-helm-repo)
+  * [7. Access to your private registry](#7-access-to-your-private-registry)
+- [Task 2: Installing a simple application](#task-2--installing-a-simple-application)
+  * [1. Getting a new helm repo](#1-getting-a-new-helm-repo)
+  * [2. View the available packages](#2-view-the-available-packages)
+  * [3. Install a package](#3-install-a-package)
+  * [4. List the package](#4-list-the-package)
+  * [5. Delete the package](#5-delete-the-package)
+- [Task 3: Understand the Kubernetes manifests](#task-3--understand-the-kubernetes-manifests)
+  * [1. Build a new docker image](#1-build-a-new-docker-image)
+  * [2. View a kubernetes manifest](#2-view-a-kubernetes-manifest)
+- [Task 4: Define a Helm chart](#task-4--define-a-helm-chart)
+  * [1. Initialize an empty chart directory](#1-initialize-an-empty-chart-directory)
+  * [2. Look at the chart directory content.](#2-look-at-the-chart-directory-content)
+  * [3. Check the chart](#3-check-the-chart)
+- [Task 5: Using Helm](#task-5--using-helm)
+  * [1. Create a new namespace](#1-create-a-new-namespace)
+  * [2. Install the chart to the training namespace](#2-install-the-chart-to-the-training-namespace)
+  * [3. List the releases](#3-list-the-releases)
+  * [4. List the deployments](#4-list-the-deployments)
+  * [5. List the services](#5-list-the-services)
+  * [6. List the pods](#6-list-the-pods)
+  * [7. Upgrade](#7-upgrade)
+- [Congratulations](#congratulations)
 
 # Helm Lab
 
@@ -756,9 +782,7 @@ hellonginx-6bcd9f4578-vnx5g  1/1    Running            0         27m
 You successfully created and managed charts to deploy applications on the IBM Cloud. 
 
 ---
-
-<div style="background-color:black;color:white; vertical-align: middle; text-align:center;font-size:250%; padding:10px; margin-top:100px"><b>
-Practical Container Orchestration
-
-Helm Lab
- </b></a></div>
+# End of the lab
+---
+# Practical Container Orchestration 
+---
