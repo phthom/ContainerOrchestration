@@ -6,21 +6,29 @@
 
 ![kube2](images/kube2.png)
 
+---
+
 ## Table of Contents
 
-- [Task 1. IBM Cloud registration](#task-1-ibm-cloud-registration)
-    + [Sign in to IBM Cloud](#sign-in-to-ibm-cloud)
-    + [Fill in the form](#fill-in-the-form)
-    + [Confirm your registration to IBM Cloud from your inbox](#confirm-your-registration-to-ibm-cloud-from-your-inbox)
-- [Task 2. Apply a promo code (if necessary)](#task-2-apply-a-promo-code--if-necessary-)
-- [Task 3. Install Docker CE on your Mac](#task-3-install-docker-ce-on-your-mac)
-- [Task 4. Install Docker CE on Windows](#task-4-install-docker-ce-on-windows)
-- [Task 5. Install Git on your laptop](#task-5-install-git-on-your-laptop)
-- [Task 6. Install the ibmcloud (ic) command](#task-6-install-the-ibmcloud--ic--command)
-- [Task 7. Login to IBM Cloud](#task-7-login-to-ibm-cloud)
-- [Task 8. Conclusion](#task-8-conclusion)
-    + [Results](#results)
-- [End of Prerequisites](#end-of-prerequisites)
+- [Task 1 : Deploying Apps with Kubernetes](#task-1---deploying-apps-with-kubernetes)
+    + [1. Login to Ubuntu VM](#1-login-to-ubuntu-vm-as---root---using-ssh-or-putty)
+    + [2.Modify your hosts file on your laptop](#2modify-your-hosts-file-on-your-laptop)
+    + [3. Download a GIT repo for this exercise](#3-download-a-git-repo-for-this-exercise)
+    + [4. Build a Docker image](#4-build-a-docker-image)
+    + [6. Log in to the cluster and push the image to the registry.](#6-log-in-to-the-cluster-and-push-the-image-to-the-registry)
+    + [7. View your image in the console](#7-view-your-image-in-the-console)
+    + [8. Run your first deployment](#8-run-your-first-deployment)
+    + [9. Expose your first service](#9-expose-your-first-service)
+    + [10. Identify the NodePort](#10-identify-the-nodeport)
+    + [11. the NodePort number is `30246`.](#11-the-nodeport-number-is--30246-)
+    + [12. Cluster resources](#12-cluster-resources)
+- [Task 2 : Scaling Apps with Kubernetes](#task-2---scaling-apps-with-kubernetes)
+    + [1. Clean up the current deployment](#1-clean-up-the-current-deployment)
+    + [2. Run a clean deployment](#2-run-a-clean-deployment)
+    + [3. Scale the application](#3-scale-the-application)
+    + [4. Rollout an update to  the application](#4-rollout-an-update-to--the-application)
+    + [End of the lab](#end-of-the-lab)
+
 
 # Introduction to IBM Cloud Kubernetes Service
 
@@ -149,147 +157,126 @@ On your laptop, you have to prepare your environment to be ready to use Kubernet
 
 If you get an error, go to the PrepareLab.MD file to understand how to install docker on your laptop.
 
-### 2. Check that bx cs and bx cr have been installed
+### 2. Check that ibmcloud cs and ibmcloud cr have been installed
 
-`ic plugin list`
+`ibmcloud plugin list`
 
-```console
-$ ic plugin list
+Results: 
+
+```bash
+$ ibmcloud plugin list
 Listing installed plug-ins...
 
 Plugin Name          Version   
-container-registry   0.1.316   
-container-service    0.1.488   
+container-registry                     0.1.339   
+container-service/kubernetes-service   0.1.581    
 ```
 
-### 3. NEW ! Install kubectl on your laptop
+### 3. Install kubectl command line on your laptop
 
 **kubectl** is the command that controls Kubernetes objects and resources. This is just one exec file that you must put in the right library on your computer. 
 
-For complete functional compatibility, download the Kubernetes CLI version that matches the Kubernetes cluster version you plan to use. The current IBM Cloud Kubernetes Service default Kubernetes version is 1.9.7
+For complete functional compatibility, download the Kubernetes CLI version that matches the Kubernetes cluster version you plan to use. 
 
-Download the kubectl file for your laptop:
+> **Normally the kubectl installation has been done during the preparation lab.**
 
-OS X: https://storage.googleapis.com/kubernetes-release/release/v1.9.8/bin/darwin/amd64/kubectl  
-
-Linux: https://storage.googleapis.com/kubernetes-release/release/v1.9.8/bin/linux/amd64/kubectl
-  
-Windows: https://storage.googleapis.com/kubernetes-release/release/v1.9.8/bin/windows/amd64/kubectl.exe  
-
-**OS X or Linux**, complete the following steps.
-
-Move the executable file to the **/usr/local/bin** directory.
-
-```console
-cd <path_where_is_kubectl>
-mv ./kubectl /usr/local/bin/kubectl
-```
-
-Be sure that /usr/local/bin is listed in your PATH system variable. The PATH variable contains all directories where your operating system can find executable files. The directories that are listed in the PATH variable serve different purposes. /usr/local/bin is used to store executable files for software that is not part of the operating system and that was manually installed by the system administrator.
-
-`echo $PATH`
-
-Your output looks similar to the following.
-
-`/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin`
-
-Make the file executable.
-
-`chmod +x /usr/local/bin/kubectl`
-
-**Windows**, complete the following steps.
-
-Move the executable file **kubectl.exe** to a directory that is available in your path like `"C:\Program Files\IBM\Bluemix\bin"`or `"C:\Program Files"`
-
-
-### 4. Check kubectl
+### 4. Check kubectl 
 
 type the following command :
 
 `kubectl version short`
 
-And you should get version 1.9.8 :
+And you should get version :
 
-```console 
+``` bash
 $ kubectl version --short
 Client Version: v1.9.8
 error: You must be logged in to the server (the server has asked for the client to provide credentials)
-````
-The error at the end is normal because we need to specify how to connect to the master. 
+```
+
+The error at the end is normal because we need to specify how to connect to the master (see below).
+
 
 ### 5. Gain access to the cluster
 
 Log into your IBM Cloud account if no already logged in.
 
-`ic login -a https://api.eu-gb.bluemix.net`
+`ibmcloud login -a https://api.eu-gb.bluemix.net`
 
-> don't forget to `ic target -o ORG -s SPACE` where ORG is your email and SPACE is dev.
+> don't forget to `ibmcloud target -o ORG -s SPACE` where ORG is your email and SPACE is dev. Or use `ibmcloud target --cf` instead.
 
 Then go to your Cluster Region :
 
-`ic cs region-set uk-south`
-
+`ibmcloud cs region-set uk-south`
 
 Set the context for the cluster in your CLI.
 
-`ic cs cluster-config mycluster`
+`ibmcloud cs cluster-config mycluster`
 
 Here is the output:
 
-```console
-$ ic cs cluster-config mycluster
+``` bash
+$ ibmcloud cs cluster-config mycluster
 OK
+
 The configuration for mycluster was downloaded successfully. Export environment variables to start using Kubernetes.
 
 export KUBECONFIG=/Users/phil/.bluemix/plugins/container-service/clusters/mycluster/kube-config-mil01-mycluster.yml
 ```
 
  > IMPORTANT : Set the KUBECONFIG environment variable. **Copy the output from the previous command and paste it in your terminal**. The command output should look similar to the following.
- 
+
  `export KUBECONFIG=/Users/phil/.bluemix/plugins/container-service/clusters/mycluster/kube-config-mil01-mycluster.yml`
- 
+
  Verify that you can connect to your cluster by listing your worker nodes.
- 
+
  `kubectl get nodes`
- 
+
  The output should be :
- 
- ```console 
+
+```bash
 $ kubectl get nodes
 NAME            STATUS    ROLES     AGE       VERSION
 10.144.186.74   Ready     <none>    11m       v1.9.8-2+af27ab4b096122
-````
+```
+
 **YOU ARE NOW CONNECTED TO YOUR CLUSTER**
+
+
 
 # Task 3 : Creating a private registry
 
-
 Set up your own private image repository in IBM Cloud Container Registry to securely store and share Docker images with all cluster users. A private image repository in IBM Cloud is identified by a **namespace**. The namespace is used to create a unique URL to your image repository that developers can use to access private Docker images.
-
 
 We choose a unique name as our namespace to group all images in our account. Replace <your_namespace> with a namespace of your choice and not something that is related to the tutorial.
 
-`ic cr namespace-add <my_namespace>`
+```
+ibmcloud cr namespace-add <my_namespace>
+```
 
-```console
-$ ic cr namespace-add imgreg        
+Results:
+
+```bash
+$ ibmcloud cr namespace-add imgreg        
 Adding namespace 'imgreg'...
 Successfully added namespace 'imgreg'
 OK
-````
+```
 
 Now login to the IBM Cloud registry:
 
-`ic cr login`
+`ibmcloud cr login`
 
 Output:
-```console 
-$ ic cr login
+
+```bash
+$ ibmcloud cr login
 Logging in to 'registry.eu-gb.bluemix.net'...
 Logged in to 'registry.eu-gb.bluemix.net'.
-
 OK
 ```
+
+
 
 To test our new private registry, do the following steps:
 
@@ -307,22 +294,9 @@ To test our new private registry, do the following steps:
 
 4. List the images in the private registry
 
-`ic cr image-list`
+`ibmcloud cr image-list`
 
 ![](./images/privateregistry.png)
-
-1. check the kubernetes version again: 
-
-`kubectl version --short`
-
-Output is:
-
-```console
-$ kubectl version --short
-Client Version: v1.9.8
-Server Version: v1.9.8-2+af27ab4b096122
-```
-As you can see, it is another way to see that we are connected to the server.
 
 
 # Task 4 : Deploying Apps with Kubernetes
@@ -336,7 +310,7 @@ Also test your connectivity to the cluster with this command:
  `kubectl get nodes`
 
 If you get an error message like "error: You must be logged in to the server (Unauthorized)", then you must setup your KUBECONFIG (see a previous topic)
-    
+​    
 
 ### 2. Download a GIT repo for this exercise
 
@@ -345,7 +319,7 @@ If you get an error message like "error: You must be logged in to the server (Un
 Get and download this github repository into that directory :
 
 `git clone https://github.com/IBM/container-service-getting-started-wt.git`
-	
+​	
 ![git](images/git.png)
 
 
@@ -360,7 +334,7 @@ Build the image locally and tag it with the name that you want to use on the  ku
 
 Output is:
 
-```console
+```
 $ docker build -t registry.eu-gb.bluemix.net/imgreg/hello1 .
 Sending build context to Docker daemon  15.36kB
 Step 1/6 : FROM node:9.4.0-alpine
@@ -389,8 +363,8 @@ To see the image, use the following command:
 `docker images registry.eu-gb.bluemix.net/<namespace>/hello1:latest`
 
 Example:
- 
- ```console
+
+ ```
 $ docker images registry.eu-gb.bluemix.net/imgreg/hello1:latest
 REPOSITORY                                 TAG                 IMAGE ID            CREATED             SIZE
 registry.eu-gb.bluemix.net/imgreg/hello1   latest              51c706fdc0c1        2 months ago        74.1MB
@@ -400,12 +374,12 @@ registry.eu-gb.bluemix.net/imgreg/hello1   latest              51c706fdc0c1     
 
 Push your image into the private registry :
 
-    
+
 `docker push registry.eu-gb.bluemix.net/<namespace>/hello1:latest`
- 
+
  Your output should look like this.
 
-```console
+```
 $ docker push registry.eu-gb.bluemix.net/imgreg/hello1
 The push refers to repository [registry.eu-gb.bluemix.net/imgreg/hello1]
 57eebb8b0417: Pushed 
@@ -449,10 +423,10 @@ You can look around in the dashboard to see all the different resources (pods, n
 Use your image to create a kubernetes deployment with the following command.
 
 `kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/<namespace>/hello1`
-  
+
 Output is :
 
-```console
+```
 $ kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/imgreg/hello1
 deployment "hello1-deployment" created
 ```
@@ -465,11 +439,11 @@ You can also look at the dashboard to see the deployment:
 Create a service to access your running container using the following command.
 
 `kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080`
- 
-  
+
+
 Your output should be:
 
-```console
+```
 $ kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080
 service "hello1-service" exposed
 ```
@@ -489,7 +463,7 @@ The service is accessed through the IP address of the proxy node with the NodePo
 
  Your output should look like this.
 
-```console
+```
 $ kubectl describe service hello1-service
 Name:                     hello1-service
 Namespace:                default
@@ -510,7 +484,7 @@ Events:                   <none>
 Or look at the dashboard:
 
 ![Describe](images/describek.png)
- 
+
  
 
 
@@ -519,14 +493,14 @@ Or look at the dashboard:
 Yours may be different. Open a Firefox browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
 
 ![Helloworld](images/browser1.png)
- 
+
 
 ### 10. Describe subcommand
 
 You can view much of the information on your cluster resources visually through the Kubernetes console.  As an alternative, you can obtain text-based information on all the resources running in your cluster using the following command.
 
 `kubectl describe all`
- 
+
 Congratulations ! You have deployed your first app to the IBM Cloud kubernetes cluster.
 
 
@@ -540,7 +514,7 @@ For this lab, you need a running deployment with a single replica. First, we cle
 
 To do so, use the following commands :
 - To remove the deployment, use:
- 
+
 `kubectl delete deployment hello1-deployment`
 
 - To remove the service, use: 
@@ -562,7 +536,8 @@ kubectl provides a scale subcommand to change the size of an existing deployment
 `kubectl scale --replicas=10 deployment hello1-deployment`
 
 Here is the result:
-```console
+
+```
 $ kubectl scale --replicas=10 deployment hello1-deployment
 deployment "hello1-deployment" scaled
 ```
@@ -575,7 +550,7 @@ To see your changes being rolled out, you can run:
 
 The rollout might occur so quickly that the following messages might not display:
 
-```console
+```bash
 $ kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 1 of 10 updated replicas are available...
 Waiting for rollout to finish: 2 of 10 updated replicas are available...
@@ -587,7 +562,9 @@ Waiting for rollout to finish: 7 of 10 updated replicas are available...
 Waiting for rollout to finish: 8 of 10 updated replicas are available...
 Waiting for rollout to finish: 9 of 10 updated replicas are available...
 deployment "hello1-deployment" successfully rolled out
-````
+```
+
+
 
 Once the rollout has finished, ensure your pods are running by using: 
 
@@ -595,9 +572,9 @@ Once the rollout has finished, ensure your pods are running by using:
 
 You should see output listing 10 replicas of your deployment:
 
-
 Results :
-```console
+
+```bash
 $ kubectl get pods
 NAME                                 READY     STATUS    RESTARTS   AGE
 hello1-deployment-864cd87c7f-675sr   1/1       Running   0          5m
@@ -642,7 +619,7 @@ Run kubectl rollout status deployment/hello-world or kubectl get replicasets to 
 
 `kubectl rollout status deployment/hello1-deployment`
 
-```console
+```bash
 $ kubectl rollout status deployment/hello1-deployment
 Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
 Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
@@ -677,13 +654,16 @@ Waiting for rollout to finish: 9 of 10 updated replicas are available...
 Waiting for rollout to finish: 9 of 10 updated replicas are available...
 Waiting for rollout to finish: 9 of 10 updated replicas are available...
 deployment "hello1" successfully rolled out
-````
+```
 
 Finally, use that command to see the result:
-
 `kubectl get replicasets`
 
-```console
+
+
+Results:
+
+```bash
 $ kubectl get replicasets
 NAME                           DESIRED   CURRENT   READY     AGE
 hello1-deployment-864cd87c7f   0         0         0         23m
@@ -696,7 +676,7 @@ Create a new service:
 
 `kubectl describe service hello1-service`
 
-Test your new code :
+Collect the NodePort and test your new code :
 
 ![New Application up and running](./images/NewApp.png)
 
@@ -751,14 +731,17 @@ Ready to delete what you created before you continue? This time, you can use the
 
 `kubectl delete -f healthcheck.yml`
 
-
 Congratulations! You deployed the second version of the app. You had to use fewer commands, learned how health check works, and edited a deployment, which is great! 
 
-Lab 2 is now complete.
 
 
 
----
+
+# Conclusion
+
+You have learnt how to create a Kubernetes cluster and how to configure all the necessary tools (CLI, connection) to manage a cluster and the kubernetes resources (PODs, Services).
+
+
 # End of the lab
 ---
 # Practical Container Orchestration 
