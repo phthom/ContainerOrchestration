@@ -220,68 +220,178 @@ http://git-scm.com/download/win
 At some point during the installation, change to the **"Use Windows default console"** and continue the installation.
 ![Git for Windows](./images/git2.png)
 
-# Task 6. Install the ibmcloud (ic) command
-****
+
+
+# Task 6. Install the ibmcloud command
+
 The **ibmcloud** command line interface (CLI) provides a set of commands that are grouped by namespace for users to interact with IBM Cloud. In previous versions, the name of that command was "bluemix" or "bx".
 
-For MacOS :
-https://clis.ng.bluemix.net/download/bluemix-cli/latest/osx
+You install a set of IBM® Cloud developer tools, verify the installation, and configure your environment. IBM® Cloud developer tools offer a command-line approach to creating, developing, and deploying end-to-end web, mobile, and microservice applications.
 
-For Windows: 
-https://clis.ng.bluemix.net/download/bluemix-cli/latest/win64
+With this installation, you get the stand-alone IBM Cloud CLI, plus the following tools:
 
-For Linux: 
-https://clis.ng.bluemix.net/download/bluemix-cli/latest/linux64
+Homebrew (Mac only)
+Git
+Docker
+Helm
+kubectl
+curl
+IBM Cloud Developer Tools plug-in
+IBM Cloud Functions plug-in
+IBM Cloud Container Registry plug-in
+IBM Cloud Kubernetes Service plug-in
+sdk-gen plug-in
 
+For MacOS or Linux:
+`curl -sL https://ibm.biz/idt-installer | bash`
 
-Then add some plugins. To do so, first add a repo of plugins :
+For Windows in PowerShell : 
 
-`ic plugin repo-plugins -r Bluemix`
-
-Then add the **container-registry** plugin :
-
-`ic plugin install container-registry -r Bluemix`
-
-```console
-$ ic plugin install container-registry -r Bluemix
-Looking up 'container-registry' from repository 'Bluemix'...
-Plug-in 'container-registry 0.1.316' found in repository 'Bluemix'
-Attempting to download the binary file...
- 29.06 MiB / 29.06 MiB [============================================================================================================] 100.00% 2m22s
-30468064 bytes downloaded
-Installing binary...
-OK
-Plug-in 'container-registry 0.1.316' was successfully installed into /Users/phil/.bluemix/plugins/container-registry. Use 'ic plugin show container-registry' to show its details.
+```
+Set-ExecutionPolicy Unrestricted; iex(New-Object Net.WebClient).DownloadString('http://ibm.biz/idt-win-installer')
 ```
 
-And then add the ** container-service** plugin : 
-
-`ic plugin install container-service -r Bluemix`
+Results:
 
 ```console
-$ ic plugin install container-service -r Bluemix
-Looking up 'container-service' from repository 'Bluemix'...
-Plug-in 'container-service 0.1.316' found in repository 'Bluemix'
-Attempting to download the binary file...
- 29.06 MiB / 29.06 MiB [============================================================================================================] 100.00% 2m22s
-30468064 bytes downloaded
-Installing binary...
-OK
-Plug-in 'container-service 0.1.316' was successfully installed into /Users/phil/.bluemix/plugins/container-service. Use 'ic plugin show container-service' to show its details.
-```
+$ curl -sL https://ibm.biz/idt-installer | bash
+[main] --==[ IBM Cloud Developer Tools for Linux/MacOS - Installer, v1.2.3 ]==--
+[install] Starting Update...
+[install] Note: You may be prompted for your 'sudo' password during install.
+[install_deps] Checking for external dependency: brew
+[install_deps] Installing/updating external dependency: git
+[install_deps] Installing/updating external dependency: docker
+[install_deps] Installing/updating external dependency: kubectl
+[install_deps] Installing/updating external dependency: helm
+[install_bx] Updating existing IBM Cloud 'bx' CLI...
+Checking for updates...
+No update required. Your CLI is already up-to-date.
+[install_bx] Running 'bx --version'...
+bx version 0.10.1+793a333-2018-09-20T06:29:40+00:00
+[install_plugins] Installing/updating IBM Cloud CLI plugins used by IDT...
+[install_plugins] Checking status of plugin: cloud-functions
+[install_plugins] Installing plugin 'cloud-functions'
+Looking up 'cloud-functions' from repository 'IBM Cloud'...
+Plug-in 'cloud-functions 1.0.23' found in repository 'IBM Cloud'
+Plug-in 'cloud-functions/wsk/functions/fn 1.0.22' was already installed. Do you want to update it with 'cloud-functions 1.0.23' or not? [y/N]> 
+FAILED
+Could not read from input: EOF
 
-Finally, list all plugin installed :
+[install_plugins] Checking status of plugin: container-registry
+[install_plugins] Updating plugin 'container-registry' from version '0.1.339'
+Plug-in 'container-registry 0.1.339' was installed.
+Checking upgrades for plug-in 'container-registry' from repository 'IBM Cloud'...
+No updates are available.
+[install_plugins] Checking status of plugin: container-service
+[install_plugins] Installing plugin 'container-service'
+Looking up 'container-service' from repository 'IBM Cloud'...
+Plug-in 'container-service/kubernetes-service 0.1.593' found in repository 'IBM Cloud'
+Plug-in 'container-service/kubernetes-service 0.1.581' was already installed. Do you want to update it with 'container-service/kubernetes-service 0.1.593' or not? [y/N]> 
+FAILED
+Could not read from input: EOF
 
-`ic plugin list`
-
-```console
-$ ic plugin list
+[install_plugins] Checking status of plugin: dev
+[install_plugins] Updating plugin 'dev' from version '2.1.4'
+Plug-in 'dev 2.1.4' was installed.
+Checking upgrades for plug-in 'dev' from repository 'IBM Cloud'...
+No updates are available.
+[install_plugins] Checking status of plugin: sdk-gen
+[install_plugins] Updating plugin 'sdk-gen' from version '0.1.12'
+Plug-in 'sdk-gen 0.1.12' was installed.
+Checking upgrades for plug-in 'sdk-gen' from repository 'IBM Cloud'...
+No updates are available.
+[install_plugins] Running 'bx plugin list'...
 Listing installed plug-ins...
 
-Plugin Name          Version   
-container-registry   0.1.316   
-container-service    0.1.488   
+Plugin Name                            Version   
+cloud-functions/wsk/functions/fn       1.0.22   
+container-registry                     0.1.339   
+container-service/kubernetes-service   0.1.581   
+dev                                    2.1.4   
+icp                                    2.1.284   
+schematics                             1.2.0   
+sdk-gen                                0.1.12   
+IBM-Containers                         1.0.1058   
+
+[install_plugins] Finished installing/updating plugins
+Password:
+[env_setup] The following shortcuts defined to access the IBM Cloud Developer Tools CLI:
+[env_setup]   idt           : Main command, shorthand for 'bx dev'
+[env_setup]   idt update    : Update your IBM Cloud Developer Tools to the latest version
+[env_setup]   idt uninstall : Uninstall the IBM Cloud Developer Tools
+[install] Install finished.
+[main] --==[ Total time: 423 seconds ]==--
+
 ```
+
+To verify that the CLI and developer tools were installed successfully, run the help command:
+
+`ibmcloud dev help`
+
+Results:
+
+```console
+ibmcloud dev help
+NAME:
+   ibmcloud dev - A CLI plugin to create, manage, and run applications on IBM Cloud
+
+USAGE:
+   ibmcloud dev command [arguments...] [command options]
+
+VERSION:
+   2.1.4
+
+COMMANDS:
+   build             Build the application in a local container
+   code              Download the code from an application
+   console           Opens the IBM Cloud console for an application
+   create            Creates a new application and gives you the option to add services
+   diag              This command displays version information about installed dependencies
+   debug             Debug your application in a local container
+   delete            Deletes an application from your space
+   deploy            Deploy an application to IBM Cloud
+   edit              Add or remove services for your application
+   enable            Add IBM Cloud files to an existing application.
+   get-credentials   Gets credentials required by the application to enable use of connected services.
+   list              List all IBM Cloud applications in a space
+   run               Run your application in a local container
+   shell             Open a shell into a local container
+   status            Check the status of the containers used by the CLI
+   stop              Stop a container
+   test              Test your application in a local container
+   view              View the URL of your application
+   help              Show help
+   
+Enter 'ibmcloud dev help [command]' for more information about a command.
+
+GLOBAL OPTIONS:
+   --version, -v                  Print the version
+   --help, -h                     Show help
+
+```
+
+You can also verify your CLI installation by typing:
+
+`ibmcloud plugin list` 
+
+Results:
+
+```console
+ibmcloud plugin list
+Listing installed plug-ins...
+
+Plugin Name                            Version   
+container-registry                     0.1.339   
+container-service/kubernetes-service   0.1.581   
+dev                                    2.1.4   
+icp                                    2.1.284   
+schematics                             1.2.0   
+sdk-gen                                0.1.12   
+IBM-Containers                         1.0.1058   
+cloud-functions/wsk/functions/fn       1.0.22 
+```
+
+
 
 # Task 7. Login to IBM Cloud
 
