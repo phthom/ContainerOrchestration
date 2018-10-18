@@ -4,7 +4,7 @@
 # Preparing the labs
 ---
 
-![Prerequisites](./images//containerservice.png)
+![image-20181018184328603](images/image-20181018184328603.png)
 
 ## Table of Contents
 
@@ -66,7 +66,7 @@ Log in to IBM Cloud with your credentials :
 Check if you can access to **Containers in Kubernetes Clusters**.
 To do so, click on **Catalog** and click on **Containers** on the left pane of the page :
 
- 
+
 ![Showing Containers](./images/showcontainers.png)
 
 > **IMPORTANT** : If you just see **Container Registry** and not the Containers in Kubernetes Clusters, then **you will need a promo code !!!**
@@ -286,11 +286,11 @@ container-service    0.1.488
 # Task 7. Login to IBM Cloud
 
  Login to IBM Cloud with the ic command :
- 
+
  `ic login -a api.eu-gb.bluemix.net`
- 
+
  And answer a few questions: email, password, account, 
- 
+
  ```console 
 $ ic login -a api.eu-gb.bluemix.net
 API endpoint: api.eu-gb.bluemix.net
@@ -316,7 +316,7 @@ Tip: If you are managing Cloud Foundry applications and services
 - Use 'ic target --cf' to target Cloud Foundry org/space interactively, or use 'ic target -o ORG -s SPACE' to target the org/space.
 - Use 'ic cf' if you want to run the Cloud Foundry CLI with current IBM Cloud CLI context.
 
-````
+​````
 
 And optionally, you can also specify the following ORG and SPACE with that command :
 
@@ -324,7 +324,7 @@ And optionally, you can also specify the following ORG and SPACE with that comma
 
 > replace the organization (-o) with your email (the default).
 
-```console
+​```console
 $ ic target -o philmetal@mail.com -s dev
 Targeted org philmetal@mail.com
 
@@ -338,7 +338,7 @@ Resource group:   Default
 Org:              philmetal@mail.com   
 Space:            dev   
 
-```
+ ```
 
 
 
