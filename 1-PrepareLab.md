@@ -32,33 +32,65 @@ So before you can start any labs, you should have satisfied the following prereq
 - [ ] You should have **1 valid email** 
 - [ ] Sign up to the **IBM Cloud** 
 
-Here are some helpful steps :
+
+
+> If you don't have a valid email address or you don't want to use your personal or professional email address, then you can use https://temp-mail.org/en/
+
+This web site will give you a temporary email address for 10 minutes :
+
+![image-20190118103132743](images/image-20190118103132743-7803892.png)
+
+From that screen,  you can use this temporaty email address (cugebezaza@utooemail.com for example) for the time to register to the IBM Cloud. 
 
 ### Sign in to IBM Cloud
 If you don't have already registered to **IBM Cloud**,  
-Open this link  [IBM Cloud](http://bluemix.net) or type http://bluemix.net in your favorite internet browser.
+Open this link  [IBM Cloud](https://cloud.ibm.com/) or type https://cloud.ibm.com/ in your favorite internet browser.
 
 
-![Create your Lite Account](./images/a001.png)
+![image-20190118101459166](images/image-20190118101459166-7802899.png)
 
 ### Fill in the form
-Specify last name, first name, corp, country, phone number and password.
+Specify last name, first name, country, phone number and password.
 > By **default**, all new people that register to IBM Cloud will have an **Lite Account** with **no time restriction**. This is not a 30 day trial account. 
 
-Click on **Create Account** button. 
-![Register to IBM Cloud](./images/a002.png)
+Click on **Create Account** button.
+
+![image-20190118103712268](images/image-20190118103712268-7804232.png) 
+
+
+Then if everything is fine, you will receive the following page:
 
 ![Thanks](./images/a003.png)
 
 
 ### Confirm your registration to IBM Cloud from your inbox
-From your email application, confirm the account creation.
+From your email application , you should have received an email from the IBM Cloud:
 
-![Confirm Account](./images/a004.png)
+![image-20190118103917487](images/image-20190118103917487-7804357.png)
+
+Click on the link to confirm the account:
+
+![image-20190118104115473](images/image-20190118104115473-7804475.png)
 
 Log in to IBM Cloud with your credentials :
 
 ![Success Sign up](./images/a005.png)
+
+Then type your password and click **Continue**
+
+![image-20190118104305743](images/image-20190118104305743-7804585.png)
+
+Type your password and click Login button:
+
+![image-20190118104419179](images/image-20190118104419179-7804659.png)
+
+You should see the following **Dashboard**:
+
+![image-20190118104520085](images/image-20190118104520085-7804720.png)
+
+You are now connected (and registred) to the IBM Cloud.
+
+> IMPORTANT : Take a note of your email address and your password.
 
 
 # Task 2. Apply a promo code (if necessary)
@@ -75,19 +107,19 @@ To do so, click on **Catalog** and click on **Containers** on the left pane of t
 
 To install a promo code, follow the procedure : 
 
-Go to **Manage > Billing and Usage > Billing** and press enter.
+Go to **Manage >Account > Account Settings** and press enter.
 
 
-![Billing](./images/billing.png)
+![image-20190118112618467](images/image-20190118112618467-7807178.png)
 
-You should get the following section in the billing page  :
+You should get the following section in the **account setting page**  :
 
-![promocode](./images/promocode.png)
+![image-20190118112743476](images/image-20190118112743476-7807263.png)
 
 Click **Apply Code** button.
 
 
-![type your Promo Code](./images/applycode.png)
+![image-20190118112849245](images/image-20190118112849245-7807329.png)
 
 Enter your **promo code** and click **Apply** 
 
@@ -99,17 +131,19 @@ Go back to the **Catalog** and check that now you have access to **Containers in
 
 ![Kubernetes](./images/kcheck.png)
 
-# Task 3. Install Docker CE on your Mac
+# Task 3. Install Docker Desktop on your Mac
 
-Follow this procedure to install the latest Docker Community Edition on your Mac (**for Windows**, jump to the next session) 
+Follow this procedure to install the latest Docker Desktop (ex Community Edition) on your Mac (**for Windows**, jump to the next session) 
 
-Docker CE for Mac is free to download.
+Docker Desktop for Mac is favailable for free.
 
 https://store.docker.com/editions/community/docker-ce-desktop-mac
 
-![Docker for Mac](./images/dockermac.png)
+![image-20190118113648920](images/image-20190118113648920-7807808.png)
 
-Install it (click on the blue button **Get Docker**)
+Click on the blue button **Please Login to Download**. If you are not registred to the Docker site, then create an account. Then when you are registered and logged in, click on the **Get Docker ** button.
+
+![image-20190118113959736](images/image-20190118113959736-7807999.png)
 
 Double-click **Docker.dmg** to start the install process.
 
@@ -123,26 +157,25 @@ Open a terminal and type :
 
 You should see something similar to this screen :
 ```console
-phil:[node]: docker version
-Client:
- Version:      18.03.1-ce
- API version:  1.37
- Go version:   go1.9.5
- Git commit:   9ee9f40
- Built:        Thu Apr 26 07:13:02 2018
- OS/Arch:      darwin/amd64
- Experimental: false
- Orchestrator: swarm
+> docker version
+Client: Docker Engine - Community
+ Version:           18.09.1
+ API version:       1.39
+ Go version:        go1.10.6
+ Git commit:        4c52b90
+ Built:             Wed Jan  9 19:33:12 2019
+ OS/Arch:           darwin/amd64
+ Experimental:      false
 
-Server:
+Server: Docker Engine - Community
  Engine:
-  Version:      18.03.1-ce
-  API version:  1.37 (minimum version 1.12)
-  Go version:   go1.9.5
-  Git commit:   9ee9f40
-  Built:        Thu Apr 26 07:22:38 2018
-  OS/Arch:      linux/amd64
-  Experimental: true
+  Version:          18.09.1
+  API version:      1.39 (minimum version 1.12)
+  Go version:       go1.10.6
+  Git commit:       4c52b90
+  Built:            Wed Jan  9 19:41:49 2019
+  OS/Arch:          linux/amd64
+  Experimental:     true
 
 ```
 > Note that you should always have the client and the server running.
@@ -150,21 +183,25 @@ Server:
 > The Docker server contains the **Docker engine**(containerd) that controls running containers. 
 
 
-# Task 4. Install Docker CE on Windows
+# Task 4. Install Docker Desktop on Windows
 
-Follow this procedure to install the latest Docker Community Edition on Windows (for Mac, jump to the previous session) 
+Follow this procedure to install the latest Docker Desktop (ex Community Edition) on Windows (for Mac, jump to the previous session) 
 
-Docker CE for Windows is free to download.
+Docker Desktop for Windows is available for free.
 
 https://store.docker.com/editions/community/docker-ce-desktop-windows
 
-![Docker for Windows](./images/dockerwin.png)
+![image-20190118115800766](images/image-20190118115800766-7809080.png)
+
+Click on the blue button **Please Login to Download**. If you are **not** registred to the Docker site, then create an account. Then when you are registered and logged in, click on the **Get Docker ** button.
+
+![image-20190118114556568](images/image-20190118114556568-7808356.png)
 
 Leave the default parameters: 
 
 ![Docker for Windows](./images/dockerwindows2.png)
 
-After download, install Docker CE
+After download, install Docker Desktop:
 
 **Double-click Docker for Windows Installer** to run the installer.
 
@@ -181,31 +218,29 @@ Run docker version to check the version.
 
 You should see something similar to this screen :
 ```console
-phil:[node]: docker version
-Client:
- Version:      18.03.1-ce
- API version:  1.37
- Go version:   go1.9.5
- Git commit:   9ee9f40
- Built:        Thu Apr 26 07:13:02 2018
- OS/Arch:      Windows/amd64
- Experimental: false
- Orchestrator: swarm
+> docker version
+Client: Docker Engine - Community
+ Version:           18.09.1
+ API version:       1.39
+ Go version:        go1.10.6
+ Git commit:        4c52b90
+ Built:             Wed Jan  9 19:33:12 2019
+ OS/Arch:           darwin/amd64
+ Experimental:      false
 
-Server:
+Server: Docker Engine - Community
  Engine:
-  Version:      18.03.1-ce
-  API version:  1.37 (minimum version 1.12)
-  Go version:   go1.9.5
-  Git commit:   9ee9f40
-  Built:        Thu Apr 26 07:22:38 2018
-  OS/Arch:      Windows/amd64
-  Experimental: true
-
+  Version:          18.09.1
+  API version:      1.39 (minimum version 1.12)
+  Go version:       go1.10.6
+  Git commit:       4c52b90
+  Built:            Wed Jan  9 19:41:49 2019
+  OS/Arch:          linux/amd64
+  Experimental:     true
 ```
 > Note that you should always have the client and the server running.
 
-> The Docker server contains the **Docker engine**(containerd) that controls running containers. 
+> The Docker server contains the **Docker engine** (containerd) that controls running containers. 
 
 # Task 5. Install Git on your laptop
 
@@ -242,10 +277,10 @@ IBM Cloud Container Registry plug-in
 IBM Cloud Kubernetes Service plug-in
 sdk-gen plug-in
 
-For MacOS or Linux:
+For MacOS or Linux (run as root) :
 `curl -sL https://ibm.biz/idt-installer | bash`
 
-For Windows in PowerShell : 
+For Windows in PowerShell (run as Administrator - your system will be rebooted at the end of installation) : 
 
 ```
 Set-ExecutionPolicy Unrestricted; iex(New-Object Net.WebClient).DownloadString('http://ibm.biz/idt-win-installer')
@@ -254,45 +289,55 @@ Set-ExecutionPolicy Unrestricted; iex(New-Object Net.WebClient).DownloadString('
 Results:
 
 ```console
-$ curl -sL https://ibm.biz/idt-installer | bash
+> curl -sL https://ibm.biz/idt-installer | bash
 [main] --==[ IBM Cloud Developer Tools for Linux/MacOS - Installer, v1.2.3 ]==--
-[install] Starting Update...
+[install] Starting Installation...
 [install] Note: You may be prompted for your 'sudo' password during install.
-[install_deps] Checking for external dependency: brew
-[install_deps] Installing/updating external dependency: git
-[install_deps] Installing/updating external dependency: docker
-[install_deps] Installing/updating external dependency: kubectl
-[install_deps] Installing/updating external dependency: helm
+[install_darwin_deps] Checking for external dependency: brew
+[install_darwin_deps] Installing/updating external dependency: git
+[install_darwin_deps] Installing/updating external dependency: docker
+[install_darwin_deps] Installing/updating external dependency: kubectl
+[install_darwin_deps] Installing/updating external dependency: helm
 [install_bx] Updating existing IBM Cloud 'bx' CLI...
 Checking for updates...
-No update required. Your CLI is already up-to-date.
+New version 0.13.1 is available.
+Release notes: https://github.com/IBM-Cloud/bluemix-cli-release/releases/tag/v0.13.1
+
+Do you want to update now? [Y/n]> 
+FAILED
+Could not read from input: EOF
+
 [install_bx] Running 'bx --version'...
-bx version 0.10.1+793a333-2018-09-20T06:29:40+00:00
+bx version 0.12.1+a6d7092-2018-11-19T10:31:10+00:00
 [install_plugins] Installing/updating IBM Cloud CLI plugins used by IDT...
 [install_plugins] Checking status of plugin: cloud-functions
 [install_plugins] Installing plugin 'cloud-functions'
 Looking up 'cloud-functions' from repository 'IBM Cloud'...
-Plug-in 'cloud-functions 1.0.23' found in repository 'IBM Cloud'
-Plug-in 'cloud-functions/wsk/functions/fn 1.0.22' was already installed. Do you want to update it with 'cloud-functions 1.0.23' or not? [y/N]> 
-FAILED
-Could not read from input: EOF
-
+Plug-in 'cloud-functions 1.0.27' found in repository 'IBM Cloud'
+Attempting to download the binary file...
+ 11.55 MiB / 11.55 MiB [=============================================================================================================] 100.00% 4s
+12110032 bytes downloaded
+Installing binary...
+OK
+Plug-in 'cloud-functions 1.0.27' was successfully installed into /Users/phil/.bluemix/plugins/cloud-functions. Use 'bx plugin show cloud-functions' to show its details.
 [install_plugins] Checking status of plugin: container-registry
-[install_plugins] Updating plugin 'container-registry' from version '0.1.339'
-Plug-in 'container-registry 0.1.339' was installed.
+[install_plugins] Updating plugin 'container-registry' from version '0.1.347'
+Plug-in 'container-registry 0.1.347' was installed.
 Checking upgrades for plug-in 'container-registry' from repository 'IBM Cloud'...
 No updates are available.
 [install_plugins] Checking status of plugin: container-service
 [install_plugins] Installing plugin 'container-service'
 Looking up 'container-service' from repository 'IBM Cloud'...
-Plug-in 'container-service/kubernetes-service 0.1.593' found in repository 'IBM Cloud'
-Plug-in 'container-service/kubernetes-service 0.1.581' was already installed. Do you want to update it with 'container-service/kubernetes-service 0.1.593' or not? [y/N]> 
-FAILED
-Could not read from input: EOF
-
+Plug-in 'container-service/kubernetes-service 0.2.19' found in repository 'IBM Cloud'
+Attempting to download the binary file...
+ 22.77 MiB / 22.77 MiB [=============================================================================================================] 100.00% 8s
+23876968 bytes downloaded
+Installing binary...
+OK
+Plug-in 'container-service 0.2.19' was successfully installed into /Users/phil/.bluemix/plugins/container-service. Use 'bx plugin show container-service' to show its details.
 [install_plugins] Checking status of plugin: dev
-[install_plugins] Updating plugin 'dev' from version '2.1.4'
-Plug-in 'dev 2.1.4' was installed.
+[install_plugins] Updating plugin 'dev' from version '2.1.12'
+Plug-in 'dev 2.1.12' was installed.
 Checking upgrades for plug-in 'dev' from repository 'IBM Cloud'...
 No updates are available.
 [install_plugins] Checking status of plugin: sdk-gen
@@ -303,24 +348,18 @@ No updates are available.
 [install_plugins] Running 'bx plugin list'...
 Listing installed plug-ins...
 
-Plugin Name                            Version   
-cloud-functions/wsk/functions/fn       1.0.22   
-container-registry                     0.1.339   
-container-service/kubernetes-service   0.1.581   
-dev                                    2.1.4   
-icp                                    2.1.284   
-schematics                             1.2.0   
-sdk-gen                                0.1.12   
-IBM-Containers                         1.0.1058   
+Plugin Name                            Version   Status   
+container-service/kubernetes-service   0.2.19       
+dev                                    2.1.12       
+icp                                    2.1.284      
+schematics                             1.2.0        
+sdk-gen                                0.1.12       
+cloud-functions/wsk/functions/fn       1.0.27       
+container-registry                     0.1.347 
 
 [install_plugins] Finished installing/updating plugins
-Password:
-[env_setup] The following shortcuts defined to access the IBM Cloud Developer Tools CLI:
-[env_setup]   idt           : Main command, shorthand for 'bx dev'
-[env_setup]   idt update    : Update your IBM Cloud Developer Tools to the latest version
-[env_setup]   idt uninstall : Uninstall the IBM Cloud Developer Tools
 [install] Install finished.
-[main] --==[ Total time: 423 seconds ]==--
+[main] --==[ Total time: 46 seconds ]==--
 
 ```
 
@@ -395,58 +434,73 @@ cloud-functions/wsk/functions/fn       1.0.22
 
 # Task 7. Login to IBM Cloud
 
- Login to IBM Cloud with the ic command :
+For these labs, we have decided to login to the **London Data Center** (api.eu-gb.bluemix.net). 
 
- `ic login -a api.eu-gb.bluemix.net`
+Login to IBM Cloud with the ic command :
 
- And answer a few questions: email, password, account, 
+ `ibmcloud login -a api.eu-gb.bluemix.net`
 
- ```console 
-$ ic login -a api.eu-gb.bluemix.net
+ And answer a few questions: email, password :
+
+```console
+> ibmcloud login -a api.eu-gb.bluemix.net
 API endpoint: api.eu-gb.bluemix.net
 
-Email> philmetal@mail.com
+Email> cugebezaza@utooemail.com
+
+Password> 
+Authenticating...
+Credentials were rejected.
+Code: BXNIM0602E, message: The credentials you entered for the user 'cugebezaza@utooemail.com' are incorrect
 
 Password> 
 Authenticating...
 OK
 
-Targeted account rock metal (4d327e6ba61d02089dab9af842d267c9)
+Targeted account Philippe Smith's Account (828b1270b40247a897d94167c14051bc)
+
 Targeted resource group Default
-                     
-API endpoint:     https://api.eu-gb.bluemix.net (API version: 2.92.0)   
-Region:           eu-gb   
-User:             philmetal@mail.com   
-Account:          rock metal (4d327e6ba61d02089dab9af842d267c9)   
-Resource group:   Default   
-Org:                 
-Space:               
+
+                      
+API endpoint:      https://api.eu-gb.bluemix.net   
+Region:            eu-gb   
+User:              cugebezaza@utooemail.com   
+Account:           Philippe Smith's Account (828b1270b40247a897d94167c14051bc)   
+Resource group:    Default   
+CF API endpoint:      
+Org:                  
+Space:                
 
 Tip: If you are managing Cloud Foundry applications and services
-- Use 'ic target --cf' to target Cloud Foundry org/space interactively, or use 'ic target -o ORG -s SPACE' to target the org/space.
-- Use 'ic cf' if you want to run the Cloud Foundry CLI with current IBM Cloud CLI context.
+- Use 'ibmcloud target --cf' to target Cloud Foundry org/space interactively, or use 'ibmcloud target --cf-api ENDPOINT -o ORG -s SPACE' to target the org/space.
+- Use 'ibmcloud cf' if you want to run the Cloud Foundry CLI with current IBM Cloud CLI context.
 
-​````
+```
+
+
 
 And optionally, you can also specify the following ORG and SPACE with that command :
 
-`ic target -o philmetal@mail.com -s dev`
+`ic target -o cugebezaza@utooemail.com -s dev`
 
-> replace the organization (-o) with your email (the default).
+Results:
 
-​```console
-$ ic target -o philmetal@mail.com -s dev
-Targeted org philmetal@mail.com
+ ```console 
+> ic target -o cugebezaza@utooemail.com -s dev
+Targeted Cloud Foundry (https://api.eu-gb.bluemix.net)
+
+Targeted org cugebezaza@utooemail.com
 
 Targeted space dev
-                     
-API endpoint:     https://api.eu-gb.bluemix.net (API version: 2.92.0)   
-Region:           eu-gb   
-User:             philmetal@mail.com   
-Account:          rock metal (4d327e6ba61d02089dab9af842d267c9)   
-Resource group:   Default   
-Org:              philmetal@mail.com   
-Space:            dev   
+                      
+API endpoint:      https://api.eu-gb.bluemix.net   
+Region:            eu-gb   
+User:              cugebezaza@utooemail.com   
+Account:           Philippe Smith's Account (828b1270b40247a897d94167c14051bc)   
+Resource group:    Default   
+CF API endpoint:   https://api.eu-gb.bluemix.net (API version: 2.106.0)   
+Org:               cugebezaza@utooemail.com   
+Space:             dev   
 
  ```
 

@@ -108,24 +108,24 @@ To use that service, click the blue button(create) at the bottom:
 
 ## 3.	Choose a region and a free Cluster
 
-Select the **United Kingdom** region on the top and select Free.
+Select **Free** for the cluster type and then the **London** location:
 
-![](./images/selectcluster.png)
+![image-20190118145616303](images/image-20190118145616303-7819776.png)
 
 Keep **mycluster** as the name of your cluster
 
 The default cluster type is **free**. Next time, you can create a standard cluster and define additional customizations, like how many worker nodes are in the cluster.
 
 
-![](./images/freecluster.png)
+![image-20190118145903795](images/image-20190118145903795-7819943.png)
 
 
 ## 4.	Click Create Cluster. 
 
 
-The details for the cluster open, but the worker node in the cluster takes a few minutes (around 10 minutes) to provision. You can see the status of the worker node in the Worker nodes tab. When the status reaches Ready, your worker node is ready to be used.
+The details for the cluster open, but the worker node in the cluster takes a few minutes (**around 10 minutes**) to provision. You can see the status of the worker node in the Worker nodes tab. When the status reaches Ready, your worker node is ready to be used.
 
-
+![image-20190118150023069](images/image-20190118150023069-7820023.png)
 
 ## 5.	Don’t wait the creation of your cluster. 
 
@@ -184,7 +184,7 @@ For complete functional compatibility, download the Kubernetes CLI version that 
 
 type the following command :
 
-`kubectl version short`
+`kubectl version --short`
 
 And you should get version :
 
@@ -296,7 +296,9 @@ To test our new private registry, do the following steps:
 
 `ibmcloud cr image-list`
 
-![](./images/privateregistry.png)
+![image-20190119190902844](images/image-20190119190902844-7921342.png)
+
+
 
 
 # Task 4 : Deploying Apps with Kubernetes

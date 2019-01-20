@@ -74,7 +74,7 @@ If you get an error, go back to the **PrepareLab** and check the instructions to
 
 Helm is a client/server application : **Helm** client and **Tiller** server. 
 Before we can run any chart with helm, we should proceed to some installation and configuration. 
-   
+
 ## 3. Download the Helm client
 
 
@@ -98,7 +98,7 @@ https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-windows-amd64.zip
 ```
 Unzip that file.
 
-Move the executable file helm.exe to a directory that is available in your path like "C:\Program Files\"
+Move the executable file **helm.exe** to a directory that is available in your path like "C:\Program Files\IBM\Cloud\bin\"
 
 ## 4. Configure a RBAC role
 
@@ -211,12 +211,12 @@ Server: v2.9.1+g20adb27
 
 For the next exercise, we need to get access to  your private registry. To do so,  login to the private registry:
 
-`ic cr login`
+`ibmcloud cr login`
 
 Results:
 
 ```console
-$ ic cr login 
+$ ibmcloud cr login 
 Logging in to 'registry.eu-gb.bluemix.net'...
 Logged in to 'registry.eu-gb.bluemix.net'.
 
@@ -291,17 +291,16 @@ my-wordpress-wordpress-6b57cb6c85-m27m6  0/1    Pending  0         1s
 
 ## 4. List the package
 
-
 `helm list`
 
 ```
  NAME                REVISION    UPDATED                     STATUS      CHART              NAMESPACE
  my-wordpress        1           Wed Jun 28 22:15:13 2017    DEPLOYED    wordpress-0.6.5    default
- ```
- 
+```
+
  You can also look at the Kubernetes Dashboard to see if the deployment was successful (DEPLOYED).
  Even if the deployment was successful, you still have to check that your application is running fine (in that case, a volume claim is requested and the application is not running fine).
- 
+
 ## 5. Delete the package
 
 `helm delete my-wordpress --purge`
@@ -405,7 +404,7 @@ spec:
    - protocol: TCP
      port: 8080
      nodePort: 30072
-````
+```
 
 - The services defines the accessibility of a pod. This service is of type NodePort, which exposes an internal Port (8080) into an externally accessible nodePort through the proxy node (here port 30072)
 - How does a service know which pod are associated with it?  From the selector(s) that would select all pods with the same label(s) to be load balanced.
@@ -419,9 +418,10 @@ Now that you have understood the structure of a kubernetes manifest file, you ca
 `cd`
 
 `helm create hellonginx`
-        
+​        
+
 ## 2. Look at the chart directory content.
-       
+
 `cd hellonginx`
 
 Inspect the directory tree:
@@ -431,7 +431,7 @@ Inspect the directory tree:
 
 `nano values.yaml` or `notepad values.yaml`
 
-Look at **values.yaml** and **modify it**. Prepare to deploy **3** replicas of the nginx image. Replace the service section and choose a port (like 30073 for instance) with the following code:
+Look at **values.yaml** and **modify it**. Prepare to deploy **1** replicas of the nginx image. Replace the service section and choose a port (like 30073 for instance) with the following code:
 
 ```console
   name: hellonginx-service
@@ -441,6 +441,10 @@ Look at **values.yaml** and **modify it**. Prepare to deploy **3** replicas of t
   nodePort: 30073
 ```
 
+
+
+
+
 The main content for **values.yaml** is as follows:
 
 ```console
@@ -448,7 +452,7 @@ The main content for **values.yaml** is as follows:
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: nginx
@@ -492,9 +496,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-````
-
+```
 
 Review **deployment template** : 
 
@@ -555,6 +557,9 @@ spec:
 {{ toYaml . | indent 8 }}
     {{- end }}
 ```
+
+
+
 
 
 Review the **service template**: 
@@ -633,24 +638,22 @@ Results:
 ```console
 $ helm install --name hellonginx --namespace training .
 NAME:   hellonginx
-LAST DEPLOYED: Tue May 22 10:46:32 2018
+LAST DEPLOYED: Sun Jan 20 23:12:11 2019
 NAMESPACE: training
 STATUS: DEPLOYED
 
 RESOURCES:
-==> v1/Service
-NAME        TYPE      CLUSTER-IP      EXTERNAL-IP  PORT(S)       AGE
-hellonginx  NodePort  172.21.132.143  <none>       80:30073/TCP  1s
-
 ==> v1beta2/Deployment
 NAME        DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
-hellonginx  3        3        3           0          1s
+hellonginx  1        1        1           0          1s
 
 ==> v1/Pod(related)
 NAME                         READY  STATUS             RESTARTS  AGE
-hellonginx-6bcd9f4578-7ps7l  0/1    ContainerCreating  0         1s
-hellonginx-6bcd9f4578-mzmtm  0/1    ContainerCreating  0         1s
-hellonginx-6bcd9f4578-vnx5g  0/1    ContainerCreating  0         1s
+hellonginx-76d95f9f78-px552  0/1    ContainerCreating  0         1s
+
+==> v1/Service
+NAME        TYPE      CLUSTER-IP      EXTERNAL-IP  PORT(S)       AGE
+hellonginx  NodePort  172.21.212.184  <none>       80:30073/TCP  1s
 
 
 NOTES:
@@ -658,12 +661,13 @@ NOTES:
   export NODE_PORT=$(kubectl get --namespace training -o jsonpath="{.spec.ports[0].nodePort}" services hellonginx)
   export NODE_IP=$(kubectl get nodes --namespace training -o jsonpath="{.items[0].status.addresses[0].address}")
   echo http://$NODE_IP:$NODE_PORT
+
 ```
 At the end of the output of that command, you will see 3 lines that you can normally use to get the URL to access your application.
 
 We are going to use another method :
 
-`ic cs workers mycluster`
+`ibmcloud cs workers mycluster`
 
 Results :
 
@@ -703,9 +707,8 @@ hellonginx	1       	Tue May 22 10:46:32 2018	DEPLOYED	hellonginx-0.1.0	training
 
 ```console
 $ kubectl get deployments --namespace=training
-
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-hellonginx   3         3         3            3           20m
+hellonginx   1         1         1            1           3m
 ```
 
 ## 5. List the services
@@ -729,11 +732,8 @@ Locate the line port 80:300073.
 **Results**
 ```console
 $ kubectl get pods --namespace=training
-
 NAME                          READY     STATUS    RESTARTS   AGE
-hellonginx-6bcd9f4578-7ps7l   1/1       Running   0          21m
-hellonginx-6bcd9f4578-mzmtm   1/1       Running   0          21m
-hellonginx-6bcd9f4578-vnx5g   1/1       Running   0          21m
+hellonginx-76d95f9f78-px552   1/1       Running   0          4m
 ```
 
 ## 7. Upgrade 
@@ -742,13 +742,14 @@ We now want to change the number of replicas to 5:
 
 Open the **values.yaml**
 
-Change the **replicaCount: 3** to **replicaCount: 5**
+Change the **replicaCount: 1** to **replicaCount: 5**
 
 Save the file and type the following command :
 
 `helm  upgrade hellonginx .`
 
 **Results**
+
 ```console
 $ helm  upgrade hellonginx .
 Release "hellonginx" has been upgraded. Happy Helming!
