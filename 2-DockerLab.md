@@ -347,14 +347,28 @@ EXPOSE 80
 
 Here, what we are building is an image that will run the nginx proxy server for us. Look at the set of instructions and it should be pretty clear. After the standard FROM and MAINTAINER instructions, we are executing a couple of RUN instructions. A RUN instruction is used to execute any commands during the **build** process. In this case we are running a package update and then installing nginx. The ENTRYPOINT is then running the nginx executable and we are using the EXPOSE command here to inform what port the container will be listening on. Remember in our earlier chapters, we saw that if we use the -P command, then the EXPOSE port will be used by default. However, you can always change the host port via the -p parameter as needed.
 
+Here are the steps:
+
+`cd`
+
+`mkdir webapp`
+
+`cd webapp`
+
+`nano Dockerfile`
+
+Now copy and paste the Dockerfile text (see above). Save the file.
+
+`docker build . -t myimage:latest`
+
 `docker run -d -p 8081:80 --name webserver myimage`
 
-`curl http://ipaddress:8081`
+`curl http://localhost:8081`
 
 Results :
 
 ```console
-# curl http://159.122.2.109:8081
+# curl http://localhost:8081
 <!DOCTYPE html>
 <html>
 <head>
@@ -382,11 +396,72 @@ Commercial support is available at
 
 Or you can also open a browser on your laptop and type :
 
-http://ipaddress:8081/ 
+http://localhost:8081/ 
 
 
 
 ![Launching the web server](./images/nginx2.png)  
+
+To **troubleshoot** your application, you may want to go inside the container to look at some logs or to see the processes.
+
+`docker exec -it webserver "/bin/bash"`
+
+> -it : this concerns the interation with the container by using a bash shell
+>
+> A prompt with the container id will be returned to you : **root@cc88b7536a57:/#**
+>
+> You can then type any kind of linux commands
+
+Output:
+
+```console
+# docker exec -it webserver "/bin/bash"
+root@cc88b7536a57:/# 
+root@cc88b7536a57:/# 
+root@cc88b7536a57:/# ll
+total 72
+drwxr-xr-x   1 root root 4096 Nov 30 14:59 ./
+drwxr-xr-x   1 root root 4096 Nov 30 14:59 ../
+-rwxr-xr-x   1 root root    0 Nov 30 14:59 .dockerenv*
+drwxr-xr-x   1 root root 4096 Nov 30 14:58 bin/
+drwxr-xr-x   2 root root 4096 Apr 24  2018 boot/
+drwxr-xr-x   5 root root  340 Nov 30 14:59 dev/
+drwxr-xr-x   1 root root 4096 Nov 30 14:59 etc/
+drwxr-xr-x   2 root root 4096 Apr 24  2018 home/
+drwxr-xr-x   1 root root 4096 Nov 12 20:54 lib/
+drwxr-xr-x   2 root root 4096 Nov 12 20:55 lib64/
+drwxr-xr-x   2 root root 4096 Nov 12 20:54 media/
+drwxr-xr-x   2 root root 4096 Nov 12 20:54 mnt/
+drwxr-xr-x   2 root root 4096 Nov 12 20:54 opt/
+dr-xr-xr-x 580 root root    0 Nov 30 14:59 proc/
+drwx------   2 root root 4096 Nov 12 20:56 root/
+drwxr-xr-x   1 root root 4096 Nov 30 14:59 run/
+drwxr-xr-x   1 root root 4096 Nov 30 14:58 sbin/
+drwxr-xr-x   2 root root 4096 Nov 12 20:54 srv/
+dr-xr-xr-x  13 root root    0 Nov 30 14:59 sys/
+drwxrwxrwt   1 root root 4096 Nov 30 14:58 tmp/
+drwxr-xr-x   1 root root 4096 Nov 12 20:54 usr/
+drwxr-xr-x   1 root root 4096 Nov 30 14:58 var/
+root@cc88b7536a57:/# ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 14:59 ?        00:00:00 nginx: master process /usr/sbin/
+www-data     7     1  0 14:59 ?        00:00:00 nginx: worker process
+www-data     8     1  0 14:59 ?        00:00:00 nginx: worker process
+www-data     9     1  0 14:59 ?        00:00:00 nginx: worker process
+www-data    10     1  0 14:59 ?        00:00:00 nginx: worker process
+www-data    11     1  0 14:59 ?        00:00:00 nginx: worker process
+www-data    12     1  0 14:59 ?        00:00:00 nginx: worker process
+www-data    13     1  0 14:59 ?        00:00:00 nginx: worker process
+www-data    14     1  0 14:59 ?        00:00:00 nginx: worker process
+root        15     0  0 15:03 pts/0    00:00:00 /bin/bash
+root        27    15  0 15:03 pts/0    00:00:00 ps -ef
+```
+
+
+
+Don't forget to **exit** from the container:
+
+`# exit`
 
 
 
