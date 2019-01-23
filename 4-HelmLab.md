@@ -11,42 +11,7 @@
 
 ---
 
-## Table of Contents
 
-- [Task 1: Helm Setup](#task-1--helm-setup)
-  * [1. Connect to the Kubernetes Cluster](#1-connect-to-the-kubernetes-cluster)
-  * [2. What is the helm tool](#2-what-is-the-helm-tool)
-  * [3. Download the Helm client](#3-download-the-helm-client)
-    + [MacOS](#macos)
-    + [Windows](#windows)
-  * [4. Configure a RBAC role](#4-configure-a-rbac-role)
-  * [5. Initialize Helm & Tiller](#5-initialize-helm---tiller)
-  * [6. Add a helm repo](#6-add-a-helm-repo)
-  * [7. Access to your private registry](#7-access-to-your-private-registry)
-- [Task 2: Installing a simple application](#task-2--installing-a-simple-application)
-  * [1. Getting a new helm repo](#1-getting-a-new-helm-repo)
-  * [2. View the available packages](#2-view-the-available-packages)
-  * [3. Install a package](#3-install-a-package)
-  * [4. List the package](#4-list-the-package)
-  * [5. Delete the package](#5-delete-the-package)
-- [Task 3: Understand the Kubernetes manifests](#task-3--understand-the-kubernetes-manifests)
-  * [1. Build a new docker image](#1-build-a-new-docker-image)
-  * [2. View a kubernetes manifest](#2-view-a-kubernetes-manifest)
-- [Task 4: Define a Helm chart](#task-4--define-a-helm-chart)
-  * [1. Initialize an empty chart directory](#1-initialize-an-empty-chart-directory)
-  * [2. Look at the chart directory content.](#2-look-at-the-chart-directory-content)
-  * [3. Check the chart](#3-check-the-chart)
-- [Task 5: Using Helm](#task-5--using-helm)
-  * [1. Create a new namespace](#1-create-a-new-namespace)
-  * [2. Install the chart to the training namespace](#2-install-the-chart-to-the-training-namespace)
-  * [3. List the releases](#3-list-the-releases)
-  * [4. List the deployments](#4-list-the-deployments)
-  * [5. List the services](#5-list-the-services)
-  * [6. List the pods](#6-list-the-pods)
-  * [7. Upgrade](#7-upgrade)
-- [Congratulations](#congratulations)
-
-# Helm Lab
 
 Helm helps you manage Kubernetes applications — Helm Charts helps you define, install, and upgrade even the most complex Kubernetes application.
 
@@ -56,6 +21,7 @@ Charts are easy to create, version, share, and publish — so start using Helm a
 
 
 # Task 1: Helm Setup
+
 
 
 ## 1. Connect to the Kubernetes Cluster
@@ -70,15 +36,20 @@ Use the kubectl command to check that you are connected:
 If you get an error, go back to the **PrepareLab** and check the instructions to **gain access** to the cluster.
 
 
+
 ## 2. What is the helm tool
 
 Helm is a client/server application : **Helm** client and **Tiller** server. 
 Before we can run any chart with helm, we should proceed to some installation and configuration. 
 
+
+
 ## 3. Download the Helm client
 
 
+
 ### MacOS
+
 ```console
 https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-darwin-amd64.tar.gz
 ```
@@ -92,7 +63,9 @@ mv ./helm /usr/local/bin/helm
 ```
 
 
+
 ### Windows
+
 ```console 
 https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-windows-amd64.zip
 ```
@@ -100,7 +73,9 @@ Unzip that file.
 
 Move the executable file **helm.exe** to a directory that is available in your path like "C:\Program Files\IBM\Cloud\bin\"
 
-## 4. Configure a RBAC role
+
+
+## 4. Configure a RBAC role for Tiller
 
 > IMPORTANT : To maintain cluster security, create a service account for Tiller in the kube-system namespace and a Kubernetes RBAC cluster role binding for the tiller-deploy pod.
 
@@ -142,6 +117,8 @@ $ kubectl create -f rbac-config.yaml
 serviceaccount "tiller" created
 clusterrolebinding "tiller" created
 ```
+
+
 
 ## 5. Initialize Helm & Tiller
 
@@ -219,12 +196,13 @@ Results:
 $ ibmcloud cr login 
 Logging in to 'registry.eu-gb.bluemix.net'...
 Logged in to 'registry.eu-gb.bluemix.net'.
-
 OK
 ```
 
 
+
 # Task 2: Installing a simple application
+
 
 
 ## 1. Getting a new helm repo
@@ -235,11 +213,15 @@ Add a Helm repository. To add the Kubernetes Incubator repository, run the follo
 helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com/
 ```
 
+
+
 ## 2. View the available packages
 
 `helm search -l`
 
 You should see a very long list of packages.
+
+
 
 ## 3. Install a package
 
@@ -312,6 +294,8 @@ release "my-wordpress" deleted
 
 Generally an helm chart is managing many pods, deployments, secrets, volumes and services. So deleting the chart is a quick way to clean up your work.
 
+
+
 # Task 3: Understand the Kubernetes manifests
 
 
@@ -338,7 +322,9 @@ registry.eu-gb.bluemix.net/imgreg/hello-world   2                   e8fea84576b2
 
 ```
 
-## 2. View a kubernetes manifest
+
+
+## 2. Kubernetes manifest
 
 Open the **healthcheck.yml** file
 
@@ -409,9 +395,13 @@ spec:
 - The services defines the accessibility of a pod. This service is of type NodePort, which exposes an internal Port (8080) into an externally accessible nodePort through the proxy node (here port 30072)
 - How does a service know which pod are associated with it?  From the selector(s) that would select all pods with the same label(s) to be load balanced.
 
+
+
 # Task 4: Define a Helm chart
 
 Now that you have understood the structure of a kubernetes manifest file, you can start working with helm chart. Basically a helm chart is a collection of manifest files that are deployed as a group. The deployment includes the ability to perform variable substitution based on a configuration file.
+
+
 
 ## 1. Initialize an empty chart directory
 
@@ -431,7 +421,7 @@ Inspect the directory tree:
 
 `nano values.yaml` or `notepad values.yaml`
 
-Look at **values.yaml** and **modify it**. Prepare to deploy **1** replicas of the nginx image. Replace the service section and choose a port (like 30073 for instance) with the following code:
+Look at **values.yaml** and **modify it**. Prepare to deploy **1** replicas of the **nginx image**. Replace the service section and choose a port (like 30073 for instance) with the following code:
 
 ```console
   name: hellonginx-service
@@ -440,8 +430,6 @@ Look at **values.yaml** and **modify it**. Prepare to deploy **1** replicas of t
   internalPort: 80  
   nodePort: 30073
 ```
-
-
 
 
 
@@ -502,7 +490,7 @@ Review **deployment template** :
 
 `nano ./templates/deployment.yaml` or  `notepad ./templates/deployment.yaml`
 
-Don't change anything.
+> Don't change anything.
 
 ```console
 apiVersion: apps/v1beta2
@@ -560,13 +548,11 @@ spec:
 
 
 
-
-
 Review the **service template**: 
 
 `nano ./templates/service.yaml` or  `notepad ./templates/service.yaml`
 
-Change the **-port section** with the following code:
+Change the **-port section** with the following code (don't type any tab and respect the indentation):
 
 ```console
     - port: {{ .Values.service.externalPort }}
@@ -600,6 +586,8 @@ spec:
     app: {{ template "hellonginx.name" . }}
     release: {{ .Release.Name }}
 ```
+
+
 ## 3. Check the chart
 
 Go back to the hellonginx path and check the validity of the helm chart.
@@ -608,13 +596,15 @@ Go back to the hellonginx path and check the validity of the helm chart.
 
 ![modify chart](images/lint.png)
 
+
+
 # Task 5: Using Helm
 
 The helm chart that we created in the previous section that has been verified can now be deployed.
 
 ## 1. Create a new namespace
 
-We are now going to define a new namespace in the mycluster.
+We are now going to define a new namespace in mycluster.
 This namespace can be seen as a **virtual partition** in the cluster. 
 
 `kubectl create namespace training`
@@ -625,6 +615,7 @@ Results :
 $ kubectl create namespace training
 namespace "training" created
 ```
+
 
 
 ## 2. Install the chart to the training namespace
@@ -687,6 +678,7 @@ Try this url and get the nginx hello:
 ![Welcome Nginx](./images/nginx.png)
 
 
+
 ## 3. List the releases 
 
 `helm list`
@@ -701,6 +693,7 @@ hellonginx	1       	Tue May 22 10:46:32 2018	DEPLOYED	hellonginx-0.1.0	training
 ```
 
 
+
 ## 4. List the deployments
 
 `kubectl get deployments --namespace=training`
@@ -710,6 +703,8 @@ $ kubectl get deployments --namespace=training
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 hellonginx   1         1         1            1           3m
 ```
+
+
 
 ## 5. List the services
 
@@ -725,6 +720,8 @@ hellonginx   NodePort   172.21.132.143   <none>        80:30073/TCP   23m
 
 Locate the line port 80:300073.  
 
+
+
 ## 6. List the pods
 
 `kubectl get pods --namespace=training`
@@ -736,11 +733,13 @@ NAME                          READY     STATUS    RESTARTS   AGE
 hellonginx-76d95f9f78-px552   1/1       Running   0          4m
 ```
 
+
+
 ## 7. Upgrade 
 
 We now want to change the number of replicas to 5:
 
-Open the **values.yaml**
+Edit the **values.yaml** file.
 
 Change the **replicaCount: 1** to **replicaCount: 5**
 
@@ -749,7 +748,6 @@ Save the file and type the following command :
 `helm  upgrade hellonginx .`
 
 **Results**
-
 ```console
 $ helm  upgrade hellonginx .
 Release "hellonginx" has been upgraded. Happy Helming!
