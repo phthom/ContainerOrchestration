@@ -308,8 +308,7 @@ Move to the Lab 2 directory:
 
 Then build the container:		
 
-`docker build -t registry.eu-gb.bluemix.net/<namespace>/
-hello-world:2 .`
+`docker build -t registry.eu-gb.bluemix.net/<namespace>/hello-world:2 .`
 
 `docker images registry.eu-gb.bluemix.net/<namespace>/hello-world:2`
 
@@ -663,7 +662,7 @@ We are going to use another method :
 Results :
 
 ```console
-$ ic cs workers mycluster
+$ ibmcloud cs workers mycluster
 OK
 
 ID                                                 Public IP         Private IP      Machine Type   State    Status   Zone    Version   

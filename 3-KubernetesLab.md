@@ -481,18 +481,89 @@ Or look at the dashboard:
  
 
 
-### 9. NodePort number
+### 9. NodePort number 32509
 
 Yours may be different. Open a Firefox browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
 
 ![Helloworld](images/browser1.png)
 
+### 10. Application troubleshooting 
 
-### 10. Describe subcommand
+You can obtain text-based information on all the resources running in your cluster using the following command if you want to debug your application when running
 
-You can view much of the information on your cluster resources visually through the Kubernetes console.  As an alternative, you can obtain text-based information on all the resources running in your cluster using the following command.
+`kubectl get pods`
 
-`kubectl describe all`
+Results:
+
+```
+# kubectl get pods
+NAME                                      READY     STATUS    RESTARTS   AGE
+hello-world-deployment-67b694c76f-hvg9k   1/1       Running   0          11m
+```
+
+If the POD is running then look at the log (change the pod name with the one shown in latest command):
+
+`kubectl logs hello-world-deployment-67b694c76f-hvg9k  `
+
+Results:
+
+```
+# kubectl logs hello-world-deployment-67b694c76f-hvg9k
+Sample app is listening on port 8080.
+
+```
+
+You can see the output of your nodeJS application.
+
+You can also go inside your container:
+
+`kubectl exec -it hello-world-deployment-67b694c76f-hvg9k /bin/sh`
+
+Results:
+
+```
+# kubectl exec -it hello-world-deployment-67b694c76f-hvg9k /bin/sh
+/ # ps
+PID   USER     TIME   COMMAND
+    1 root       0:00 /bin/sh -c node app.js
+    7 root       0:00 node app.js
+   19 root       0:00 /bin/sh
+   25 root       0:00 ps
+/ # 
+/ # ls -l
+total 96
+-rw-r--r--    1 root     root           325 Nov 30 15:30 app.js
+drwxr-xr-x    1 root     root          4096 Nov 30 15:31 bin
+drwxr-xr-x    5 root     root           360 Nov 30 15:37 dev
+drwxr-xr-x    1 root     root          4096 Nov 30 15:37 etc
+drwxr-xr-x    1 root     root          4096 Jan 11  2018 home
+drwxr-xr-x    1 root     root          4096 Nov 30 15:31 lib
+drwxr-xr-x    5 root     root          4096 Jan  9  2018 media
+drwxr-xr-x    2 root     root          4096 Jan  9  2018 mnt
+drwxr-xr-x   80 root     root          4096 Nov 30 15:31 node_modules
+drwxr-xr-x    3 root     root          4096 Jan 11  2018 opt
+-rw-r--r--    1 root     root         25023 Nov 30 15:31 package-lock.json
+-rw-r--r--    1 root     root           183 Nov 30 15:30 package.json
+dr-xr-xr-x  583 root     root             0 Nov 30 15:37 proc
+drwx------    1 root     root          4096 Nov 30 15:59 root
+drwxr-xr-x    2 root     root          4096 Jan  9  2018 run
+drwxr-xr-x    1 root     root          4096 Nov 30 15:31 sbin
+drwxr-xr-x    2 root     root          4096 Jan  9  2018 srv
+dr-xr-xr-x   13 root     root             0 Nov 30 15:03 sys
+drwxrwxrwt    1 root     root          4096 Jan 11  2018 tmp
+drwxr-xr-x    1 root     root          4096 Jan 11  2018 usr
+drwxr-xr-x    1 root     root          4096 Jan  9  2018 var
+/ # 
+
+```
+
+You can use some commands like: ps, ls, cat ... and you can also install commands that are not there (using apt-get install for example).
+
+Dont forget to **exit**
+
+`# exit`
+
+
 
 Congratulations ! You have deployed your first app to the IBM Cloud kubernetes cluster.
 
