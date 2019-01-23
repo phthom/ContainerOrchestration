@@ -6,22 +6,9 @@
 
 ![image-20181018184328603](images/image-20181018184328603.png)
 
-## Table of Contents
 
-- [Task 1. IBM Cloud registration](#task-1-ibm-cloud-registration)
-    + [Sign in to IBM Cloud](#sign-in-to-ibm-cloud)
-    + [Fill in the form](#fill-in-the-form)
-    + [Confirm your registration to IBM Cloud from your inbox](#confirm-your-registration-to-ibm-cloud-from-your-inbox)
-- [Task 2. Apply a promo code (if necessary)](#task-2-apply-a-promo-code--if-necessary-)
-- [Task 3. Install Docker CE on your Mac](#task-3-install-docker-ce-on-your-mac)
-- [Task 4. Install Docker CE on Windows](#task-4-install-docker-ce-on-windows)
-- [Task 5. Install Git on your laptop](#task-5-install-git-on-your-laptop)
-- [Task 6. Install the ibmcloud commands](#task-6-install-the-ibmcloud-commands)
-- [Task 7. Login to IBM Cloud](#task-7-login-to-ibm-cloud)
-- [Task 8. Conclusion](#task-8-conclusion)
-    + [Results](#results)
 
-Before you can run all the labs about container orchestration, you should prepare your environment to execute those labs.
+Before you can run all the labs about container orchestration, you should prepare your environment to execute those labs. Check the following instructions.
 
 
 # Task 1. IBM Cloud registration
@@ -30,9 +17,11 @@ Labs are running on the **IBM Cloud** (ex Bluemix).
 
 So before you can start any labs, you should have satisfied the following prerequisites :
 - [ ] You should have **1 valid email** 
+
 - [ ] Sign up to the **IBM Cloud** 
 
 
+**If you already have a IBM id, jump to task 2.**
 
 > If you don't have a valid email address or you don't want to use your personal or professional email address, then you can use https://temp-mail.org/en/
 
