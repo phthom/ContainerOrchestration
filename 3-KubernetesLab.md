@@ -8,29 +8,10 @@
 
 ---
 
-## Table of Contents
-
-- [Task 1 : Deploying Apps with Kubernetes](#task-1---deploying-apps-with-kubernetes)
-    + [1. Login to Ubuntu VM](#1-login-to-ubuntu-vm-as---root---using-ssh-or-putty)
-    + [2.Modify your hosts file on your laptop](#2modify-your-hosts-file-on-your-laptop)
-    + [3. Download a GIT repo for this exercise](#3-download-a-git-repo-for-this-exercise)
-    + [4. Build a Docker image](#4-build-a-docker-image)
-    + [6. Log in to the cluster and push the image to the registry.](#6-log-in-to-the-cluster-and-push-the-image-to-the-registry)
-    + [7. View your image in the console](#7-view-your-image-in-the-console)
-    + [8. Run your first deployment](#8-run-your-first-deployment)
-    + [9. Expose your first service](#9-expose-your-first-service)
-    + [10. Identify the NodePort](#10-identify-the-nodeport)
-    + [11. the NodePort number is `30246`.](#11-the-nodeport-number-is--30246-)
-    + [12. Cluster resources](#12-cluster-resources)
-- [Task 2 : Scaling Apps with Kubernetes](#task-2---scaling-apps-with-kubernetes)
-    + [1. Clean up the current deployment](#1-clean-up-the-current-deployment)
-    + [2. Run a clean deployment](#2-run-a-clean-deployment)
-    + [3. Scale the application](#3-scale-the-application)
-    + [4. Rollout an update to  the application](#4-rollout-an-update-to--the-application)
-    + [End of the lab](#end-of-the-lab)
 
 
-# Introduction to IBM Cloud Kubernetes Service
+
+# Introduction to IBM Cloud Kubernetes Service (IKS)
 
 IBM Cloud Kubernetes Service combines Docker and Kubernetes to deliver powerful tools, an intuitive user experience, and built-in security and isolation to automate the deployment, operation, scaling, and monitoring of containerized apps over a cluster of independent compute hosts by using the Kubernetes APIs.
 
@@ -56,7 +37,7 @@ When you want to deploy a container from an image, you must make sure that the i
 
 ## Kubernetes
 
-Kubernetes was developed by Google as part of the Borg project and handed off to the open source community in 2014. Kubernetes combines more than 15 years of Google research in running a containerized infrastructure with production work loads, open source contributions, and Docker container management tools to provide an isolated and secure app platform that is portable, extensible, and self-healing in case of failovers.
+Kubernetes was developed by Google as part of the Borg project and handed off to the open source community in 2015. Kubernetes combines more than 15 years of Google research in running a containerized infrastructure with production work loads, open source contributions, and Docker container management tools to provide an isolated and secure app platform that is portable, extensible, and self-healing in case of failovers.
 
 Learn about the basics of how Kubernetes works with a little terminology.
 
@@ -80,10 +61,9 @@ You can use a deployment to define update strategies for your app, which include
 
 A Kubernetes service groups a set of pods and provides network connection to these pods for other services in the cluster without exposing the actual private IP address of each pod. You can use a service to make your app available within your cluster or to the public internet. 
 
+With IBM Cloud Kubernetes Service (IKS), you can define complex architectures that implement resiliency, high availability and replication between data centers and regions (also called AZ – availability zones).  
 
-![](./images/architecturek.png)
-
-With IBM Cloud Kubernetes Service, you can define complex architectures that implement resiliency, high availability and replication between data centers and regions (also called AZ – availability zones). See some examples below. In this lab, we are not going to implement such a complex environment. 
+In this lab, we are not going to implement such a complex environment. 
 
 # Task 1 : Create your first cluster
 
@@ -95,13 +75,13 @@ To create a lite cluster:
 
 ## 1.  Select the IBM Kubernetes Service	
 
-From the Catalog, in the Containers category, click Containers in Kubernetes Cluster.
+From the Catalog, in the Containers category, click **Containers in Kubernetes Cluster**.
 
 ![](./images/IBMcontainerservice.png)
 
 ## 2. Create the service
 
-To use that service, click the blue button(create) at the bottom:
+To use that service, click the blue button(**create**) at the bottom:
 
 ![](./images/createcluster.png)
 
@@ -123,13 +103,11 @@ The default cluster type is **free**. Next time, you can create a standard clust
 ## 4.	Click Create Cluster. 
 
 
-The details for the cluster open, but the worker node in the cluster takes a few minutes (**around 10 minutes**) to provision. You can see the status of the worker node in the Worker nodes tab. When the status reaches Ready, your worker node is ready to be used.
+The details for the cluster open, but the worker node in the cluster takes a few minutes (**around 10 minutes**) to provision. You can see the status of the worker node in the Worker nodes tab. When the status reaches Ready, your worker node is ready to be used. A green light will appear.
 
 ![image-20190118150023069](images/image-20190118150023069-7820023.png)
 
-## 5.	Don’t wait the creation of your cluster. 
-
-You can jump into the next chapter to set up your cluster environment. 
+## 5.	What is a lite cluster  
 
 The lite cluster has one worker node with 2 CPU and 4 GB memory available for your apps to use for one month.
 
@@ -139,6 +117,8 @@ The resources that are required to run the cluster, such as **VLANS and IP addre
 
 **Tip**: Lite clusters that are created with a IBM Cloud free trial account are automatically removed after the free trial period ends, unless you upgrade to a IBM Cloud Pay-As-You-Go account.
 
+
+
 # Task 2 : prepare your environment
 
 Deploy and manage your own Kubernetes cluster in the cloud. You can automate the deployment, operation, scaling, and monitoring of containerized apps in a cluster of independent compute hosts called worker nodes.
@@ -147,15 +127,19 @@ Deploy and manage your own Kubernetes cluster in the cloud. You can automate the
 •	Install all the CLIs for using the Kubernetes API and managing Docker images
 •	Create a private image repository in IBM Cloud Container Registry to store your images
 
-It can take a few minutes to provision your cluster. To make the most of your time, create your cluster before installing all the CLIs. 
+It can take 10min utes to provision your cluster. To make the most of your time, create your cluster before installing all the CLIs. 
 
 On your laptop, you have to prepare your environment to be ready to use Kubernetes and your cluster **mycluster**.
+
+
 
 ### 1. Check that docker is running on your laptop
 
 `docker version`
 
 If you get an error, go to the PrepareLab.MD file to understand how to install docker on your laptop.
+
+
 
 ### 2. Check that ibmcloud cs and ibmcloud cr have been installed
 
@@ -172,6 +156,8 @@ container-registry                     0.1.339
 container-service/kubernetes-service   0.1.581    
 ```
 
+
+
 ### 3. Install kubectl command line on your laptop
 
 **kubectl** is the command that controls Kubernetes objects and resources. This is just one exec file that you must put in the right library on your computer. 
@@ -180,13 +166,15 @@ For complete functional compatibility, download the Kubernetes CLI version that 
 
 > **Normally the kubectl installation has been done during the preparation lab.**
 
+
+
 ### 4. Check kubectl 
 
 type the following command :
 
 `kubectl version --short`
 
-And you should get version :
+And you should get version for your client :
 
 ``` bash
 $ kubectl version --short
@@ -194,7 +182,7 @@ Client Version: v1.9.8
 error: You must be logged in to the server (the server has asked for the client to provide credentials)
 ```
 
-The error at the end is normal because we need to specify how to connect to the master (see below).
+The error at the end is **normal** because we need to specify how to connect to the master (see below).
 
 
 ### 5. Gain access to the cluster
@@ -205,6 +193,8 @@ Log into your IBM Cloud account if no already logged in.
 
 > don't forget to `ibmcloud target -o ORG -s SPACE` where ORG is your email and SPACE is dev. Or use `ibmcloud target --cf` instead.
 
+**IMPORTANT : At this point, your cluster should have been started. Check in the IBM Cloud Console.**
+
 Then go to your Cluster Region :
 
 `ibmcloud cs region-set uk-south`
@@ -213,10 +203,10 @@ Set the context for the cluster in your CLI.
 
 `ibmcloud cs cluster-config mycluster`
 
-Here is the output:
+Output:
 
 ``` bash
-$ ibmcloud cs cluster-config mycluster
+> ibmcloud cs cluster-config mycluster
 OK
 
 The configuration for mycluster was downloaded successfully. Export environment variables to start using Kubernetes.
@@ -234,13 +224,14 @@ export KUBECONFIG=/Users/phil/.bluemix/plugins/container-service/clusters/myclus
 
  The output should be :
 
-```bash
+```con
 $ kubectl get nodes
 NAME            STATUS    ROLES     AGE       VERSION
 10.144.186.74   Ready     <none>    11m       v1.9.8-2+af27ab4b096122
+
 ```
 
-**YOU ARE NOW CONNECTED TO YOUR CLUSTER**
+**YOU ARE NOW CONNECTED TO YOUR CLUSTER** !
 
 
 
@@ -278,7 +269,7 @@ OK
 
 
 
-To test our new private registry, do the following steps:
+To test our new **private registry**, do the following steps:
 
 1. get the hello-world image from Docker-Hub
 
@@ -393,7 +384,7 @@ d200459bdbd0: Layer already exists
 latest: digest: sha256:4d754d9b243818185bb18a5b25f41bf1a2eb3ea7ad3efcdafbe1b204664b56f7 size: 1576
 ```
 
-> **IMPORTANT** : be sure that all the layers have been pushed, wait for the digest line.
+> **IMPORTANT** : be sure that all the layers have been pushed, wait for the digest line at the end.
 
 
 ### 5. Open the Kubernetes Console
@@ -490,7 +481,7 @@ Or look at the dashboard:
  
 
 
-### 9. The NodePort number is `32509`. 
+### 9. NodePort number
 
 Yours may be different. Open a Firefox browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
 
@@ -504,6 +495,7 @@ You can view much of the information on your cluster resources visually through 
 `kubectl describe all`
 
 Congratulations ! You have deployed your first app to the IBM Cloud kubernetes cluster.
+
 
 
 # Task 5 : Scaling Apps with Kubernetes
@@ -661,8 +653,6 @@ deployment "hello1" successfully rolled out
 Finally, use that command to see the result:
 `kubectl get replicasets`
 
-
-
 Results:
 
 ```bash
@@ -682,66 +672,11 @@ Collect the NodePort and test your new code :
 
 ![New Application up and running](./images/NewApp.png)
 
-### 5. Check the health of apps
-
-Kubernetes uses availability checks (**liveness probes**) to know when to restart a container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a container in such a state can help to make the application more available despite bugs.
-
-Also, Kubernetes uses readiness checks to know when a container is ready to start accepting traffic. A pod is considered ready when all of its containers are ready. One use of this check is to control which pods are used as backends for services. When a pod is not ready, it is removed from load balancers.
-
-In this example, we have defined a HTTP liveness probe to check health of the container every five seconds. For the first 10-15 seconds the /healthz returns a 200 response and will fail afterward. Kubernetes will automatically restart the service.
-
-Open the **healthcheck.yml** file with a text editor. 
-
-`nano healthcheck.yml`
-
-This configuration script combines a few steps from the previous lesson to create a deployment and a service at the same time. App developers can use these scripts when updates are made or to troubleshoot issues by re-creating the pods:
-
-Update the details for the image in your private registry namespace:
-
-image: "registry.eu-gb.bluemix.net/<namespace>/hello-world:2"
-
-> Note the HTTP liveness probe that checks the health of the container every five seconds.
-
-```console
-livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5
-```
-
-In the Service section, note the NodePort. Rather than generating a random NodePort like you did in the previous lesson, you can specify a port in the 30000 - 32767 range. This example uses 30072.
-
-Run the configuration script in the cluster. When the deployment and the service are created, the app is available for anyone to see:
-
-`kubectl apply -f healthcheck.yml`
-
-Now that all the deployment work is done, check how everything turned out. You might notice that because more instances are running, things might run a bit slower.
-
-Open a browser and check out the app. To form the URL, combine the IP with the NodePort that was specified in the configuration script. 
-
-In a browser, you'll see a success message. If you do not see this text, don't worry. This app is designed to go up and down.
-
-For the first 25-30 seconds, a 200 message is returned, so you know that the app is running successfully. After those 15 seconds, a timeout message is displayed, as is designed in the app.
-
-Launch your Kubernetes dashboard:
-
-In the Workloads tab, you can see the resources that you created. From this tab, you can continually refresh and see that the health check is working. In the Pods section, you can see how many times the pods are restarted when the containers in them are re-created. You might happen to catch errors in the dashboard, indicating that the health check caught a problem. Give it a few minutes and refresh again. You see the number of restarts changes for each pod.
-
-Ready to delete what you created before you continue? This time, you can use the same configuration script to delete both of the resources you created.
-
-`kubectl delete -f healthcheck.yml`
-
-Congratulations! You deployed the second version of the app. You had to use fewer commands, learned how health check works, and edited a deployment, which is great! 
-
-
-
 
 
 # Conclusion
 
-You have learnt how to create a Kubernetes cluster and how to configure all the necessary tools (CLI, connection) to manage a cluster and the kubernetes resources (PODs, Services).
+You have learnt how to create a Kubernetes cluster and see how to configure all the necessary tools (CLI, connection) to manage a cluster and the kubernetes resources (PODs, Services). And you have deployed and scaled an application in that kubernetes cluster !
 
 
 # End of the lab
