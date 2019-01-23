@@ -16,7 +16,7 @@
 - [Task 3. Install Docker CE on your Mac](#task-3-install-docker-ce-on-your-mac)
 - [Task 4. Install Docker CE on Windows](#task-4-install-docker-ce-on-windows)
 - [Task 5. Install Git on your laptop](#task-5-install-git-on-your-laptop)
-- [Task 6. Install the ibmcloud (ic) command](#task-6-install-the-ibmcloud--ic--command)
+- [Task 6. Install the ibmcloud commands](#task-6-install-the-ibmcloud-commands)
 - [Task 7. Login to IBM Cloud](#task-7-login-to-ibm-cloud)
 - [Task 8. Conclusion](#task-8-conclusion)
     + [Results](#results)
@@ -257,25 +257,11 @@ At some point during the installation, change to the **"Use Windows default cons
 
 
 
-# Task 6. Install the ibmcloud command
+# Task 6. Install the ibmcloud commands
 
 The **ibmcloud** command line interface (CLI) provides a set of commands that are grouped by namespace for users to interact with IBM Cloud. In previous versions, the name of that command was "bluemix" or "bx".
 
-You install a set of IBM® Cloud developer tools, verify the installation, and configure your environment. IBM® Cloud developer tools offer a command-line approach to creating, developing, and deploying end-to-end web, mobile, and microservice applications.
-
-With this installation, you get the stand-alone IBM Cloud CLI, plus the following tools:
-
-Homebrew (Mac only)
-Git
-Docker
-Helm
-kubectl
-curl
-IBM Cloud Developer Tools plug-in
-IBM Cloud Functions plug-in
-IBM Cloud Container Registry plug-in
-IBM Cloud Kubernetes Service plug-in
-sdk-gen plug-in
+You install a set of IBM Cloud commands and tools, verify the installation, and configure your environment. IBM® Cloud developer tools offer a command-line approach to creating, developing, and deploying end-to-end web, mobile, and microservice applications.
 
 For MacOS or Linux (run as root) :
 `curl -sL https://ibm.biz/idt-installer | bash`
@@ -422,13 +408,12 @@ Listing installed plug-ins...
 Plugin Name                            Version   
 container-registry                     0.1.339   
 container-service/kubernetes-service   0.1.581   
-dev                                    2.1.4   
-icp                                    2.1.284   
-schematics                             1.2.0   
-sdk-gen                                0.1.12   
-IBM-Containers                         1.0.1058   
-cloud-functions/wsk/functions/fn       1.0.22 
+...
 ```
+
+> You should get at least these 2 plugins installed : **container-registry** and **container-service/kubernetes-service**
+
+
 
 
 
@@ -436,7 +421,7 @@ cloud-functions/wsk/functions/fn       1.0.22
 
 For these labs, we have decided to login to the **London Data Center** (api.eu-gb.bluemix.net). 
 
-Login to IBM Cloud with the ic command :
+Login to IBM Cloud with the ibmcloud command :
 
  `ibmcloud login -a api.eu-gb.bluemix.net`
 
@@ -481,12 +466,16 @@ Tip: If you are managing Cloud Foundry applications and services
 
 And optionally, you can also specify the following ORG and SPACE with that command :
 
-`ic target -o cugebezaza@utooemail.com -s dev`
+`ibmcloud target -o cugebezaza@utooemail.com -s dev`
+
+or 
+
+`ibmcloud target --cf`
 
 Results:
 
  ```console 
-> ic target -o cugebezaza@utooemail.com -s dev
+> ibmcloud target -o cugebezaza@utooemail.com -s dev
 Targeted Cloud Foundry (https://api.eu-gb.bluemix.net)
 
 Targeted org cugebezaza@utooemail.com
@@ -516,7 +505,7 @@ You finally went thru the following features :
 - [x] You applied a promo code
 - [x] You installed Docker on your laptop
 - [x] You installed Git
-- [x] You installed the ic command
+- [x] You installed the ibmcloud commands
 - [x] You login to IBM Cloud successfully
 - [x] You are ready for the labs
 ---
