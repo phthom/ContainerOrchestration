@@ -75,22 +75,22 @@ To create a lite cluster:
 
 ## 1.  Select the IBM Kubernetes Service	
 
-From the Catalog, in the Containers category, click **Containers in Kubernetes Cluster**.
+From the Catalog, in the Containers category, click on **Kubernetes Service**.
 
-![](./images/IBMcontainerservice.png)
+![image-20190406152818356](images/image-20190406152818356-4557298.png)
 
 ## 2. Create the service
 
-To use that service, click the blue button(**create**) at the bottom:
+To use that service, click the blue button (**create**) at the bottom:
 
 ![](./images/createcluster.png)
 
 
-## 3.	Choose a region and a free Cluster
+## 3.	Define a free Cluster
 
-Select **Free** for the cluster type and then the **London** location:
+Select **Free** for the cluster type :
 
-![image-20190118145616303](images/image-20190118145616303-7819776.png)
+![image-20190406162955570](images/image-20190406162955570-4560995.png)
 
 Keep **mycluster** as the name of your cluster
 
@@ -100,14 +100,27 @@ The default cluster type is **free**. Next time, you can create a standard clust
 ![image-20190118145903795](images/image-20190118145903795-7819943.png)
 
 
-## 4.	Click Create Cluster. 
+## 4.	Create the cluster 
 
+Click on the 
+
+![image-20190406211905698](images/image-20190406211905698-4578345.png)
 
 The details for the cluster open, but the worker node in the cluster takes a few minutes (**around 10 minutes**) to provision. You can see the status of the worker node in the Worker nodes tab. When the status reaches Ready, your worker node is ready to be used. A green light will appear.
 
 ![image-20190118150023069](images/image-20190118150023069-7820023.png)
 
-## 5.	What is a lite cluster  
+Click on **Access** to find some more information:
+
+![image-20190406192605615](images/image-20190406192605615-4571565.png)
+
+**Take a note of** :
+
+> - API login endpoint (https://api.ng.bluemix.net for example)
+>
+> - The region-set (us-south for example)
+
+## 5.	What is a lite cluster ?  
 
 The lite cluster has one worker node with 2 CPU and 4 GB memory available for your apps to use for one month.
 
@@ -115,11 +128,11 @@ The worker node is centrally monitored and managed by a dedicated and highly ava
 
 The resources that are required to run the cluster, such as **VLANS and IP addresses**, are managed in an **IBM-owned IBM Cloud** Infrastructure (SoftLayer) account. When you create a standard cluster, you manage these resources in your own IBM Cloud Infrastructure (SoftLayer) account. You can learn more about these resources when you create a standard cluster.
 
-**Tip**: Lite clusters that are created with a IBM Cloud free trial account are automatically removed after the free trial period ends, unless you upgrade to a IBM Cloud Pay-As-You-Go account.
+**Tip**: Lite clusters that are created with a IBM Cloud free trial account are **automatically removed** after the free trial period ends, unless you upgrade to a IBM Cloud Pay-As-You-Go account.
 
 
 
-# Task 2 : prepare your environment
+# Task 2 : Prepare your environment
 
 Deploy and manage your own Kubernetes cluster in the cloud. You can automate the deployment, operation, scaling, and monitoring of containerized apps in a cluster of independent compute hosts called worker nodes.
 
@@ -189,15 +202,17 @@ The error at the end is **normal** because we need to specify how to connect to 
 
 Log into your IBM Cloud account if no already logged in.
 
-`ibmcloud login -a https://api.eu-gb.bluemix.net`
+`ibmcloud login -a <API-login-end-point>`
 
-> don't forget to `ibmcloud target -o ORG -s SPACE` where ORG is your email and SPACE is dev. Or use `ibmcloud target --cf` instead.
+> where the <API login-end-point> has been recorded previously in task 1-4.
 
 **IMPORTANT : At this point, your cluster should have been started. Check in the IBM Cloud Console.**
 
 Then go to your Cluster Region :
 
-`ibmcloud cs region-set uk-south`
+`ibmcloud cs region-set <region-set> `
+
+> where the <region-set> has been recorded previously  in task 1-4..
 
 Set the context for the cluster in your CLI.
 
@@ -231,7 +246,7 @@ NAME            STATUS    ROLES     AGE       VERSION
 
 ```
 
-**YOU ARE NOW CONNECTED TO YOUR CLUSTER** !
+**YOU ARE NOW CONNECTED TO YOUR CLUSTER**.
 
 
 
@@ -267,7 +282,9 @@ Logged in to 'registry.eu-gb.bluemix.net'.
 OK
 ```
 
+Take a note of the Doker registry name (**registry.eu-gb.bluemix.net** for example). 
 
+It will be referred as <registry>
 
 To test our new **private registry**, do the following steps:
 
@@ -277,11 +294,11 @@ To test our new **private registry**, do the following steps:
 
 2. tag the hello-world image with a name containing your private registry name :
 
-`docker tag hello-world registry.eu-gb.bluemix.net/<my_namespace>/hello-world:latest`
+`docker tag hello-world <registry>/<my_namespace>/hello-world:latest`
 
 3. push your image in the private registry
 
-`docker push registry.eu-gb.bluemix.net/<my_namespace>/hello-world:latest`
+`docker push <registry>/<my_namespace>/hello-world:latest`
 
 4. List the images in the private registry
 
@@ -289,6 +306,7 @@ To test our new **private registry**, do the following steps:
 
 ![image-20190119190902844](images/image-20190119190902844-7921342.png)
 
+>  Note that with the recent change in the registry name, you can also see : **us.icr.io** instead of registry.eu-gb.bluemix. Both names are equivalent.
 
 
 
@@ -323,7 +341,7 @@ Build the image locally and tag it with the name that you want to use on the  ku
 
 `cd "container-service-getting-started-wt/Lab 1"`
 
-`docker build -t registry.eu-gb.bluemix.net/<namespace>/hello1 .`
+`docker build -t <registry>/<namespace>/hello1 .`
 
 Output is:
 
@@ -353,7 +371,7 @@ Successfully tagged registry.eu-gb.bluemix.net/imgreg/hello1:latest
 
 To see the image, use the following command:
 
-`docker images registry.eu-gb.bluemix.net/<namespace>/hello1:latest`
+`docker images <registry>/<namespace>/hello1:latest`
 
 Example:
 
@@ -363,12 +381,11 @@ REPOSITORY                                 TAG                 IMAGE ID         
 registry.eu-gb.bluemix.net/imgreg/hello1   latest              51c706fdc0c1        2 months ago        74.1MB
  ```
 
-### 4. push the image to the registry. 
+### 4. Push the image to the registry. 
 
 Push your image into the private registry :
 
-
-`docker push registry.eu-gb.bluemix.net/<namespace>/hello1:latest`
+`docker push <registry>/<namespace>/hello1:latest`
 
  Your output should look like this.
 
@@ -391,16 +408,16 @@ latest: digest: sha256:4d754d9b243818185bb18a5b25f41bf1a2eb3ea7ad3efcdafbe1b2046
 
 Go to your IBM Cloud Console and click on the IBM Cloud icon on the top left part of the screen:
 
-![image list](images/IBMCloudDash.png)
+![image-20190406221530977](images/image-20190406221530977-4581731.png)
 
-Then select **"mycluster"** to see the Kubernetes Cluster details.
+Click on Kubernetes Clusters and then select **"mycluster"** to see the Kubernetes Cluster details.
 
 
-![image list](images/ClusterDet.png)
+![image-20190406221758573](images/image-20190406221758573-4581878.png)
 
 > Now go to the Worker Nodes section (on the left pane) and **take a note** of the **public IP of that worker node** :
 
-![image list](images/publicip.png)
+![image-20190406221845033](images/image-20190406221845033-4581925.png)
 
 
 On the right part of the screen, **click the blue button** : Kubernetes Dashboard
@@ -415,7 +432,7 @@ You can look around in the dashboard to see all the different resources (pods, n
 
 Use your image to create a kubernetes deployment with the following command.
 
-`kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/<namespace>/hello1`
+`kubectl run hello1-deployment --image=<registry>/<namespace>/hello1`
 
 Output is :
 
@@ -431,7 +448,11 @@ You can also look at the dashboard to see the deployment:
 
 Create a service to access your running container using the following command.
 
-`kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080`
+```console
+kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080
+```
+
+
 
 
 Your output should be:
@@ -483,7 +504,7 @@ Or look at the dashboard:
 
 ### 9. NodePort number 32509
 
-Yours may be different. Open a Firefox browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
+Yours may be different. Open a  browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
 
 ![Helloworld](images/browser1.png)
 
@@ -590,7 +611,7 @@ To do so, use the following commands :
 
 To do so, use the following commands :
 
-`kubectl run hello1-deployment --image=registry.eu-gb.bluemix.net/<namespace>/hello1`
+`kubectl run hello1-deployment --image=<registry>/<namespace>/hello1`
 
 ### 3. Scale the application
 
@@ -668,15 +689,19 @@ If you are in "Lab 1" directory, you need to go to "Lab 2" directory:
 
 Build a new version (2) of that application: 
 
-`docker build -t registry.eu-gb.bluemix.net/<namespace>/hello1:2 .`
+`docker build -t <registry>/<namespace>/hello1:2 .`
 
 Then push the new version into the registry:
 
-`docker push registry.eu-gb.bluemix.net/<namespace>/hello1:2`
+`docker push <registry>/<namespace>/hello1:2`
 
 Using kubectl, you can now update your deployment to use the latest image. kubectl allows you to change details about existing resources with the set subcommand. We can use it to change the image being used.
 
-`kubectl set image deployment/hello1-deployment hello1-deployment=registry.eu-gb.bluemix.net/<namespace>/hello1:2`
+```console
+kubectl set image deployment/hello1-deployment hello1-deployment=<registry>/<namespace>/hello1:2
+```
+
+
 
 Note that a pod could have multiple containers, in which case each container will have its own name. Multiple containers can be updated at the same time. 
 

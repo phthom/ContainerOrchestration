@@ -300,30 +300,9 @@ Generally an helm chart is managing many pods, deployments, secrets, volumes and
 
 
 
-## 1. Build a new docker image
-
 Move to the Lab 2 directory: 
 
 `cd "container-service-getting-started-wt/Lab 2"`
-
-Then build the container:		
-
-`docker build -t registry.eu-gb.bluemix.net/<namespace>/hello-world:2 .`
-
-`docker images registry.eu-gb.bluemix.net/<namespace>/hello-world:2`
-
-Result:
-
-```console
-$ docker images registry.eu-gb.bluemix.net/imgreg/hello-world:2
-REPOSITORY                                      TAG                 IMAGE ID            CREATED             SIZE
-registry.eu-gb.bluemix.net/imgreg/hello-world   2                   e8fea84576b2        5 weeks ago         74.1MB
-
-```
-
-
-
-## 2. Kubernetes manifest
 
 Open the **healthcheck.yml** file
 
@@ -416,7 +395,6 @@ Now that you have understood the structure of a kubernetes manifest file, you ca
 Inspect the directory tree:
 
 ![create tree](./images/treehelm.png)
-
 
 `nano values.yaml` or `notepad values.yaml`
 
@@ -777,7 +755,7 @@ hellonginx-6bcd9f4578-vnx5g  1/1    Running            0         27m
 
 # Congratulations
 
-You successfully created and managed charts to deploy applications on the IBM Cloud. 
+You successfully created and managed helm charts to deploy applications on the IBM Cloud. 
 
 ---
 # End of the lab

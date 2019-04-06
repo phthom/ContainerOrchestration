@@ -404,13 +404,13 @@ Notice that all the layers in the image have been gone.
 
 `docker ps -a | grep couchdb`
 
-  >***Note:*** Docker images and containers can be referenced by **name** or by **id**. 
-  >
-  >An alternative to these commands is to use a combined command like the following one :
-  >
-  > `docker rm -v $(docker ps -a -q)`
-  >
-  >However be carefull with that command that will remove all containers.
+***Note:*** Docker images and containers can be referenced by **name** or by **id**. 
+
+An alternative to these commands is to use a combined command like the following one :
+
+ `docker rm -v $(docker ps -a -q)`
+
+However be carefull with that command that will **remove all containers** and shoudn't be used within Kubernetes.
 
 
 

@@ -116,9 +116,9 @@ Enter your **promo code** and click **Apply**
 
 > Close this window and **logout / login** to your account.
 
-Go back to the **Catalog** and check that now you have access to **Containers in Kubernetes Clusters** and the Container Registry.
+Go back to the **Catalog** and check that now you have access to **Kubernetes Service** and the Container Registry.
 
-![Kubernetes](./images/kcheck.png)
+![image-20190406152818356](images/image-20190406152818356-4557298.png)
 
 # Task 3. Install Docker Desktop on your Mac
 
@@ -253,13 +253,17 @@ The **ibmcloud** command line interface (CLI) provides a set of commands that ar
 You install a set of IBM Cloud commands and tools, verify the installation, and configure your environment. IBM® Cloud developer tools offer a command-line approach to creating, developing, and deploying end-to-end web, mobile, and microservice applications.
 
 For MacOS or Linux (run as root) :
-`curl -sL https://ibm.biz/idt-installer | bash`
+`sudo curl -sL https://ibm.biz/idt-installer | bash`
 
-For Windows in PowerShell (run as Administrator - your system will be rebooted at the end of installation) : 
+For Windows in **PowerShell** (Right-click the Windows PowerShell icon, and select **Run as administrator**) : 
 
 ```
 Set-ExecutionPolicy Unrestricted; iex(New-Object Net.WebClient).DownloadString('http://ibm.biz/idt-win-installer')
 ```
+
+![image-20190406154121132](images/image-20190406154121132-4558081.png)
+
+
 
 Results:
 
