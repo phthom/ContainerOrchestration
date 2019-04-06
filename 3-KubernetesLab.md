@@ -4,11 +4,7 @@
 # Kubernetes Lab
 ---
 
-![kube2](images/kube2.png)
-
----
-
-
+![image-20190406232700999](images/image-20190406232700999-4586021.png)
 
 
 # Introduction to IBM Cloud Kubernetes Service (IKS)

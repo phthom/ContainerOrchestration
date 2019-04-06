@@ -7,7 +7,7 @@
 # Helm lab
 ---
 
-![helmlogo2](images/helmlogo2.png)
+![img](https://s14-eu5.startpage.com/cgi-bin/serveimage?url=https:%2F%2Fblog.depado.eu%2Fassets%2Fkube-drone-helm%2Fhelm.png&sp=e4379498c37b775406f8cb9f2ba17055)
 
 ---
 

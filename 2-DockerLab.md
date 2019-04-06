@@ -4,7 +4,7 @@
 # Docker Labs
 ---
 
-![Docker Logo](./images/docker2.png)
+![img](https://s14-eu5.startpage.com/cgi-bin/serveimage?url=https:%2F%2Fpanzura.com%2Fwp-content%2Fuploads%2F2017%2F11%2Ficons-docker-lrg.png&sp=10a719e61566d81236c01e0de106b9d0)
 
 
 
