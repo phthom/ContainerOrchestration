@@ -84,7 +84,7 @@ You are now connected (and registred) to the IBM Cloud.
 
 # Task 2. Apply a promo code (if necessary)
 
-Check if you can access to **Containers in Kubernetes Clusters**.
+Check if you can access to **Kubernetes Service**.
 To do so, click on **Catalog** and click on **Containers** on the left pane of the page :
 
 
