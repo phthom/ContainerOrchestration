@@ -580,8 +580,6 @@ Dont forget to **exit**
 
 `# exit`
 
-
-
 Congratulations ! You have deployed your first app to the IBM Cloud kubernetes cluster.
 
 
@@ -756,11 +754,12 @@ hello1-deployment-d7cb4bfcf    10        10        10        2m
 
 Create a new service:
 
-`kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080`
+```console
+kubectl expose deployment/hello1-deployment --type=NodePort --port=8080 --name=hello1-service --target-port=8080
+kubectl describe service hello1-service
+```
 
-`kubectl describe service hello1-service`
-
-Collect the NodePort and test your new code :
+Collect the new NodePort and test your new code :
 
 ![New Application up and running](./images/NewApp.png)
 
