@@ -1,7 +1,9 @@
 
 # Practical Container Orchestration Workshop
 
+Updated in May 2019
 
-![img](https://s14-eu5.startpage.com/cgi-bin/serveimage?url=https:%2F%2Fwww.cactushugs.com%2Fwp-content%2Fuploads%2F2019%2F04%2Fshipping-container.jpg&sp=0ed7546373ad8d2a9d12835434ce8d00)
+![img](images/image-20181018184328603.png)
 
-Updated in April 2019
+
+

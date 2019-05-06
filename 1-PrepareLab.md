@@ -1,5 +1,5 @@
 
-# Practical Container Orchestration 
+# Practical Container Orchestration Workshop
 ---
 # Preparing the labs
 ---
@@ -10,20 +10,21 @@
 
 Before you can run all the labs about container orchestration, you should prepare your environment to execute those labs. Check the following instructions.
 
+Labs are running on the **IBM Cloud** (ex Bluemix).
+
+
+
 
 # Task 1. IBM Cloud registration
 
-Labs are running on the **IBM Cloud** (ex Bluemix).
+**<u>Skip This task if you already have an IBM cloud account</u>** 
 
 So before you can start any labs, you should have satisfied the following prerequisites :
 - [ ] You should have **1 valid email** 
 
 - [ ] Sign up to the **IBM Cloud** 
 
-
-**If you already have a IBM id, jump to task 2.**
-
-> If you don't have a valid email address or you don't want to use your personal or professional email address, then you can use https://temp-mail.org/en/
+> If you don't have a valid email address or if you don't want to use your personal or professional email address, then you can use a temporary email at  https://temp-mail.org/en/
 
 This web site will give you a temporary email address for 10 minutes :
 
@@ -82,7 +83,10 @@ You are now connected (and registred) to the IBM Cloud.
 > IMPORTANT : Take a note of your email address and your password.
 
 
+
 # Task 2. Apply a promo code (if necessary)
+
+<u>**Skip This task if you already have access to IBM Kubernetes Service**</u>
 
 Check if you can access to **Kubernetes Service**.
 To do so, click on **Catalog** and click on **Containers** on the left pane of the page :
@@ -120,7 +124,11 @@ Go back to the **Catalog** and check that now you have access to **Kubernetes Se
 
 ![image-20190406152818356](images/image-20190406152818356-4557298.png)
 
+
+
 # Task 3. Install Docker Desktop on your Mac
+
+**<u>Skip This task if you already have Docker installed on your Mac</u>**
 
 Follow this procedure to install the latest Docker Desktop (ex Community Edition) on your Mac (**for Windows**, jump to the next session) 
 
@@ -172,9 +180,14 @@ Server: Docker Engine - Community
 > The Docker server contains the **Docker engine**(containerd) that controls running containers. 
 
 
+
 # Task 4. Install Docker Desktop on Windows
 
+**<u>Skip This task if you already have Docker installed on you Windows 10</u>**
+
 Follow this procedure to install the latest Docker Desktop (ex Community Edition) on Windows (for Mac, jump to the previous session) 
+
+> Windows operating system should be Windows 10 Pro or higher. 
 
 Docker Desktop for Windows is available for free.
 
@@ -231,14 +244,18 @@ Server: Docker Engine - Community
 
 > The Docker server contains the **Docker engine** (containerd) that controls running containers. 
 
+
+
 # Task 5. Install Git on your laptop
 
-To do so : 
+**<u>Skip This task if you already have GIT on your laptop</u>**
 
-For MacOS :
+To install Git : 
+
+On MacOS :
 http://mac.github.com
 
-For Windows: 
+On Windows: 
 http://git-scm.com/download/win
 
 At some point during the installation, change to the **"Use Windows default console"** and continue the installation.
@@ -246,204 +263,117 @@ At some point during the installation, change to the **"Use Windows default cons
 
 
 
-# Task 6. Install the ibmcloud commands
+
+
+# Task 6. Install the ibmcloud command
+
+**<u>Skip This task if you already have ibmcloud and plugin installed on your laptop</u>**
 
 The **ibmcloud** command line interface (CLI) provides a set of commands that are grouped by namespace for users to interact with IBM Cloud. In previous versions, the name of that command was "bluemix" or "bx".
 
 You install a set of IBM Cloud commands and tools, verify the installation, and configure your environment. IBM® Cloud developer tools offer a command-line approach to creating, developing, and deploying end-to-end web, mobile, and microservice applications.
 
-For MacOS or Linux (run as root) :
-`sudo curl -sL https://ibm.biz/idt-installer | bash`
 
-For Windows in **PowerShell** (Right-click the Windows PowerShell icon, and select **Run as administrator**) : 
+
+Find more information here for more installation approaches :
+
+<https://cloud.ibm.com/docs/cli/reference/ibmcloud?topic=cloud-cli-install-ibmcloud-cli#install_use>
+
+
+
+**For MacOS :**
+
+https://clis.cloud.ibm.com/download/bluemix-cli/latest/osx
+
+
+
+**For Windows :**
+
+https://clis.cloud.ibm.com/download/bluemix-cli/latest/win64
+
+
+
+Then test your command (open a terminal or a command line) :	
+
+` ibmcloud`
+
+![image-20190411121816113](images/image-20190411121816113-4977896.png)
+
+
+
+Install the 2 plugins :
 
 ```
-Set-ExecutionPolicy Unrestricted; iex(New-Object Net.WebClient).DownloadString('http://ibm.biz/idt-win-installer')
+ibmcloud plugin install kubernetes-service
+ibmcloud plugin install container-registry
 ```
 
-![image-20190406154121132](images/image-20190406154121132-4558081.png)
-
-
-
-Results:
+Results
 
 ```console
-> curl -sL https://ibm.biz/idt-installer | bash
-[main] --==[ IBM Cloud Developer Tools for Linux/MacOS - Installer, v1.2.3 ]==--
-[install] Starting Installation...
-[install] Note: You may be prompted for your 'sudo' password during install.
-[install_darwin_deps] Checking for external dependency: brew
-[install_darwin_deps] Installing/updating external dependency: git
-[install_darwin_deps] Installing/updating external dependency: docker
-[install_darwin_deps] Installing/updating external dependency: kubectl
-[install_darwin_deps] Installing/updating external dependency: helm
-[install_bx] Updating existing IBM Cloud 'bx' CLI...
-Checking for updates...
-New version 0.13.1 is available.
-Release notes: https://github.com/IBM-Cloud/bluemix-cli-release/releases/tag/v0.13.1
-
-Do you want to update now? [Y/n]> 
-FAILED
-Could not read from input: EOF
-
-[install_bx] Running 'bx --version'...
-bx version 0.12.1+a6d7092-2018-11-19T10:31:10+00:00
-[install_plugins] Installing/updating IBM Cloud CLI plugins used by IDT...
-[install_plugins] Checking status of plugin: cloud-functions
-[install_plugins] Installing plugin 'cloud-functions'
-Looking up 'cloud-functions' from repository 'IBM Cloud'...
-Plug-in 'cloud-functions 1.0.27' found in repository 'IBM Cloud'
+> ibmcloud plugin install kubernetes-service
+Looking up 'kubernetes-service' from repository 'IBM Cloud'...
+Plug-in 'container-service/kubernetes-service 0.2.99' found in repository 'IBM Cloud'
+Do you want to update it with 'container-service/kubernetes-service 0.2.99' or not? [y/N]> y
 Attempting to download the binary file...
- 11.55 MiB / 11.55 MiB [=============================================================================================================] 100.00% 4s
-12110032 bytes downloaded
+ 24.18 MiB / 24.18 MiB [=======================================] 100.00% 10s
+25353300 bytes downloaded
 Installing binary...
 OK
-Plug-in 'cloud-functions 1.0.27' was successfully installed into /Users/phil/.bluemix/plugins/cloud-functions. Use 'bx plugin show cloud-functions' to show its details.
-[install_plugins] Checking status of plugin: container-registry
-[install_plugins] Updating plugin 'container-registry' from version '0.1.347'
-Plug-in 'container-registry 0.1.347' was installed.
-Checking upgrades for plug-in 'container-registry' from repository 'IBM Cloud'...
-No updates are available.
-[install_plugins] Checking status of plugin: container-service
-[install_plugins] Installing plugin 'container-service'
-Looking up 'container-service' from repository 'IBM Cloud'...
-Plug-in 'container-service/kubernetes-service 0.2.19' found in repository 'IBM Cloud'
+Plug-in 'container-service 0.2.99' was successfully installed into /Users/phil/.bluemix/plugins/container-service. Use 'ibmcloud plugin show container-service' to show its details.
+
+> ibmcloud plugin install container-registry
+Looking up 'container-registry' from repository 'IBM Cloud'...
+Plug-in 'container-registry 0.1.380' found in repository 'IBM Cloud'
+Plug-in 'container-registry 0.1.373' was already installed. Do you want to update it with 'container-registry 0.1.380' or not? [y/N]> y
 Attempting to download the binary file...
- 22.77 MiB / 22.77 MiB [=============================================================================================================] 100.00% 8s
-23876968 bytes downloaded
+ 3.33 MiB / 24.45 MiB [=========================================] 100.00% 43s
+25640616 bytes downloaded
 Installing binary...
 OK
-Plug-in 'container-service 0.2.19' was successfully installed into /Users/phil/.bluemix/plugins/container-service. Use 'bx plugin show container-service' to show its details.
-[install_plugins] Checking status of plugin: dev
-[install_plugins] Updating plugin 'dev' from version '2.1.12'
-Plug-in 'dev 2.1.12' was installed.
-Checking upgrades for plug-in 'dev' from repository 'IBM Cloud'...
-No updates are available.
-[install_plugins] Checking status of plugin: sdk-gen
-[install_plugins] Updating plugin 'sdk-gen' from version '0.1.12'
-Plug-in 'sdk-gen 0.1.12' was installed.
-Checking upgrades for plug-in 'sdk-gen' from repository 'IBM Cloud'...
-No updates are available.
-[install_plugins] Running 'bx plugin list'...
-Listing installed plug-ins...
-
-Plugin Name                            Version   Status   
-container-service/kubernetes-service   0.2.19       
-dev                                    2.1.12       
-icp                                    2.1.284      
-schematics                             1.2.0        
-sdk-gen                                0.1.12       
-cloud-functions/wsk/functions/fn       1.0.27       
-container-registry                     0.1.347 
-
-[install_plugins] Finished installing/updating plugins
-[install] Install finished.
-[main] --==[ Total time: 46 seconds ]==--
+Plug-in 'container-registry 0.1.380' was successfully installed into /Users/phil/.bluemix/plugins/container-registry. Use 'ibmcloud plugin show container-registry' to show its details.
 
 ```
 
-To verify that the CLI and developer tools were installed successfully, run the help command:
+Check your commands:
 
-`ibmcloud dev help`
+  `ibmcloud cr`
 
-Results:
+![image-20190411121443786](images/image-20190411121443786-4977683.png)
 
-```console
-ibmcloud dev help
-NAME:
-   ibmcloud dev - A CLI plugin to create, manage, and run applications on IBM Cloud
+` ibmcloud cs` or `ibmcloud ks` : these are the same commands
 
-USAGE:
-   ibmcloud dev command [arguments...] [command options]
-
-VERSION:
-   2.1.4
-
-COMMANDS:
-   build             Build the application in a local container
-   code              Download the code from an application
-   console           Opens the IBM Cloud console for an application
-   create            Creates a new application and gives you the option to add services
-   diag              This command displays version information about installed dependencies
-   debug             Debug your application in a local container
-   delete            Deletes an application from your space
-   deploy            Deploy an application to IBM Cloud
-   edit              Add or remove services for your application
-   enable            Add IBM Cloud files to an existing application.
-   get-credentials   Gets credentials required by the application to enable use of connected services.
-   list              List all IBM Cloud applications in a space
-   run               Run your application in a local container
-   shell             Open a shell into a local container
-   status            Check the status of the containers used by the CLI
-   stop              Stop a container
-   test              Test your application in a local container
-   view              View the URL of your application
-   help              Show help
-   
-Enter 'ibmcloud dev help [command]' for more information about a command.
-
-GLOBAL OPTIONS:
-   --version, -v                  Print the version
-   --help, -h                     Show help
-
-```
-
-You can also verify your CLI installation by typing:
-
-`ibmcloud plugin list` 
-
-Results:
-
-```console
-ibmcloud plugin list
-Listing installed plug-ins...
-
-Plugin Name                            Version   
-container-registry                     0.1.339   
-container-service/kubernetes-service   0.1.581   
-...
-```
-
-> You should get at least these 2 plugins installed : **container-registry** and **container-service/kubernetes-service**
-
-
+![image-20190411121605400](images/image-20190411121605400-4977765.png)
 
 
 
 # Task 7. Login to IBM Cloud
 
-For these labs, we have decided to login to the **London Data Center** (api.eu-gb.bluemix.net). 
-
 Login to IBM Cloud with the ibmcloud command :
 
- `ibmcloud login -a api.eu-gb.bluemix.net`
+ `ibmcloud login`
 
  And answer a few questions: email, password :
 
 ```console
-> ibmcloud login -a api.eu-gb.bluemix.net
-API endpoint: api.eu-gb.bluemix.net
+ibmcloud login
+API endpoint: https://api.ng.bluemix.net
 
-Email> cugebezaza@utooemail.com
-
-Password> 
-Authenticating...
-Credentials were rejected.
-Code: BXNIM0602E, message: The credentials you entered for the user 'cugebezaza@utooemail.com' are incorrect
+Email> vatazi@easymail.top
 
 Password> 
 Authenticating...
 OK
 
-Targeted account Philippe Smith's Account (828b1270b40247a897d94167c14051bc)
+Targeted account va tazi's Account (6af9653fe1d644ee998627937a26547e)
 
 Targeted resource group Default
 
                       
-API endpoint:      https://api.eu-gb.bluemix.net   
-Region:            eu-gb   
-User:              cugebezaza@utooemail.com   
-Account:           Philippe Smith's Account (828b1270b40247a897d94167c14051bc)   
+API endpoint:      https://api.ng.bluemix.net   
+Region:            us-south   
+User:              vatazi@easymail.top   
+Account:           va tazi's Account (6af9653fe1d644ee998627937a26547e)   
 Resource group:    Default   
 CF API endpoint:      
 Org:                  
@@ -453,39 +383,10 @@ Tip: If you are managing Cloud Foundry applications and services
 - Use 'ibmcloud target --cf' to target Cloud Foundry org/space interactively, or use 'ibmcloud target --cf-api ENDPOINT -o ORG -s SPACE' to target the org/space.
 - Use 'ibmcloud cf' if you want to run the Cloud Foundry CLI with current IBM Cloud CLI context.
 
+
 ```
 
-
-
-And optionally, you can also specify the following ORG and SPACE with that command :
-
-`ibmcloud target -o cugebezaza@utooemail.com -s dev`
-
-or 
-
-`ibmcloud target --cf`
-
-Results:
-
- ```console 
-> ibmcloud target -o cugebezaza@utooemail.com -s dev
-Targeted Cloud Foundry (https://api.eu-gb.bluemix.net)
-
-Targeted org cugebezaza@utooemail.com
-
-Targeted space dev
-                      
-API endpoint:      https://api.eu-gb.bluemix.net   
-Region:            eu-gb   
-User:              cugebezaza@utooemail.com   
-Account:           Philippe Smith's Account (828b1270b40247a897d94167c14051bc)   
-Resource group:    Default   
-CF API endpoint:   https://api.eu-gb.bluemix.net (API version: 2.106.0)   
-Org:               cugebezaza@utooemail.com   
-Space:             dev   
-
- ```
-
+**You are now ready to start the other labs**.
 
 
 
@@ -504,5 +405,5 @@ You finally went thru the following features :
 ---
 # End of the lab
 ---
-# Practical Container Orchestration 
+# Practical Container Orchestration Workshop 
 ---

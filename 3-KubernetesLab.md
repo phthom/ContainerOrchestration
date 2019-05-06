@@ -1,5 +1,5 @@
 
-# Practical Container Orchestration 
+# Practical Container Orchestration Workshop  
 ---
 # Kubernetes Lab
 ---
@@ -61,6 +61,8 @@ With IBM Cloud Kubernetes Service (IKS), you can define complex architectures th
 
 In this lab, we are not going to implement such a complex environment. 
 
+
+
 # Task 1 : Create your first cluster
 
 Kubernetes is an orchestration tool for scheduling app containers onto a cluster of compute machines. With Kubernetes, developers can rapidly develop highly available applications by using the power and flexibility of containers.
@@ -98,7 +100,7 @@ The default cluster type is **free**. Next time, you can create a standard clust
 
 ## 4.	Create the cluster 
 
-Click on the 
+Click on the **Create Cluster** button:
 
 ![image-20190406211905698](images/image-20190406211905698-4578345.png)
 
@@ -110,11 +112,12 @@ Click on **Access** to find some more information:
 
 ![image-20190406192605615](images/image-20190406192605615-4571565.png)
 
-**Take a note of** :
+**IMPORTANT - Take a note of** :
 
 > - API login endpoint (https://api.ng.bluemix.net for example)
->
 > - The region-set (us-south for example)
+
+
 
 ## 5.	What is a lite cluster ?  
 
@@ -169,25 +172,70 @@ container-service/kubernetes-service   0.1.581
 
 ### 3. Install kubectl command line on your laptop
 
-**kubectl** is the command that controls Kubernetes objects and resources. This is just one exec file that you must put in the right library on your computer. 
+This command (kubectl) will be used to control kubernetes. For more information on installation, go to this link:
 
-For complete functional compatibility, download the Kubernetes CLI version that matches the Kubernetes cluster version you plan to use. 
+<https://kubernetes.io/docs/tasks/tools/install-kubectl/>
 
-> **Normally the kubectl installation has been done during the preparation lab.**
+#### MacOS installation
+
+1. Download the latest release:
+
+   ```
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.11.1/bin/darwin/amd64/kubectl
+   ```
+
+   Make the kubectl binary executable.
+
+   ```
+   chmod +x ./kubectl
+   ```
+
+2. Move the binary in to your PATH.
+
+   ```
+   sudo mv ./kubectl /usr/local/bin/kubectl
+   ```
+
+3. Test to ensure the version
+
+   ```
+   kubectl version --short --client=true 
+   ```
+
+#### Windows 10 Pro installation
+
+1. Go to the following link:
+
+https://storage.googleapis.com/kubernetes-release/release/v1.11.1/bin/windows/amd64/kubectl.exe
+
+1. Move this binary (kubectl.exe) to a directory that is already in your **path** like "C:\Program Files\IBM\Cloud\bin\"
+
+1. Test to ensure the version
+
+```
+kubectl version --short --client=true **
+```
+
+Results:
+
+```**kubectl version --short  --client=true** 
+kubectl version --short  --client=true 
+Client Version: v1.11.1
+```
 
 
 
-### 4. Check kubectl 
+### 4. Check again kubectl 
 
 type the following command :
 
 `kubectl version --short`
 
-And you should get version for your client :
+And you should get version for your client and server :
 
 ``` bash
 $ kubectl version --short
-Client Version: v1.9.8
+Client Version: v1.11.1
 error: You must be logged in to the server (the server has asked for the client to provide credentials)
 ```
 
@@ -238,7 +286,7 @@ export KUBECONFIG=/Users/phil/.bluemix/plugins/container-service/clusters/myclus
 ```con
 $ kubectl get nodes
 NAME            STATUS    ROLES     AGE       VERSION
-10.144.186.74   Ready     <none>    11m       v1.9.8-2+af27ab4b096122
+10.144.186.74   Ready     <none>    11m       v1.11.1-2+af27ab4b096122
 
 ```
 
@@ -280,7 +328,7 @@ OK
 
 Take a note of the Doker registry name (**registry.eu-gb.bluemix.net** for example). 
 
-It will be referred as <registry>
+It will be referred as <registry> in the next steps.
 
 To test our new **private registry**, do the following steps:
 
@@ -440,6 +488,8 @@ You can also look at the dashboard to see the deployment:
 
 ![expose service](images/deployk.png)
 
+
+
 ### 7. Create a service 
 
 Create a service to access your running container using the following command.
@@ -461,6 +511,7 @@ service "hello1-service" exposed
 And you can also go to the dashboard :
 
 ![expose service](images/servicek.png)
+
 
 
 ### 8. NodePort type
@@ -495,12 +546,14 @@ Or look at the dashboard:
 
 ![Describe](images/describek.png)
 
- 
+There are 2 different endpoints: 8080 and 32509. The one that you need is in the 30000-32999 range. Take a note of the **32509** NodePort. **Yours may be different.** 
 
 
-### 9. NodePort number 32509
 
-Yours may be different. Open a  browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
+
+### 9. Use the NodePort number
+
+Open a  browser window or tab and go to the URL of your node with your NodePort number, such as `http://159.122.181.117:32509`. Your output should look like this.
 
 ![Helloworld](images/browser1.png)
 

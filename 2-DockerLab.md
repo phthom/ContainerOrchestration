@@ -1,10 +1,10 @@
 
-# Practical Container Orchestration 
+# Practical Container Orchestration Workshop 
 ---
 # Docker Labs
 ---
 
-![img](https://s14-eu5.startpage.com/cgi-bin/serveimage?url=https:%2F%2Fpanzura.com%2Fwp-content%2Fuploads%2F2017%2F11%2Ficons-docker-lrg.png&sp=10a719e61566d81236c01e0de106b9d0)
+![img](images/docker.png)
 
 
 
@@ -344,7 +344,7 @@ Apparently some stopped containers are still using this images and you can see t
 
 ### 14. Oops, it is not working
 
-We can't delete that image until we delete the "couchdb" containers.
+We can't delete that image until we delete the "couchdb" containers (running or not).
 
 > Note the `docker ps -a` will show us all the containers, not just the ones that are running but also the ones that stopped.
 You will noticed that all containers that you are listing have been stopped. 
@@ -647,11 +647,11 @@ To troubleshoot your container or your application, you may want to go inside th
 
 `docker exec -it webserver "/bin/bash"`
 
-> -it : this concerns the interation with the container by using a bash shell
+> -it : this concerns the interation with the container by using a bash shell.
 >
-> A prompt with the container id will be returned to you : **root@cc88b7536a57:/#**
+> A prompt with the container id will be returned to you like : **root@cc88b7536a57:/#**
 >
-> You can then type any kind of linux commands
+> You can then type any kind of linux commands that are parts of the image.
 
 Output:
 
@@ -713,5 +713,5 @@ Congratulations, you have successfully completed this Containers lab !  You've j
 ---
 # End of the lab
 ---
-# Practical Container Orchestration 
+# Practical Container Orchestration Workshop  
 ---

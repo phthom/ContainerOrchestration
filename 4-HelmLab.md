@@ -2,7 +2,7 @@
 
 
 
-# Practical Container Orchestration 
+# Practical Container Orchestration Workshop 
 ---
 # Helm lab
 ---
@@ -760,5 +760,5 @@ You successfully created and managed helm charts to deploy applications on the I
 ---
 # End of the lab
 ---
-# Practical Container Orchestration 
+# Practical Container Orchestration Workshop 
 ---
