@@ -206,21 +206,21 @@ This command (kubectl) will be used to control kubernetes. For more information 
 
 1. Go to the following link:
 
-https://storage.googleapis.com/kubernetes-release/release/v1.11.1/bin/windows/amd64/kubectl.exe
+https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/windows/amd64/kubectl.exe
 
 1. Move this binary (kubectl.exe) to a directory that is already in your **path** like "C:\Program Files\IBM\Cloud\bin\"
 
 1. Test to ensure the version
 
 ```
-kubectl version --short --client=true **
+kubectl version --short --client=true
 ```
 
 Results:
 
 ```**kubectl version --short  --client=true** 
 kubectl version --short  --client=true 
-Client Version: v1.11.1
+Client Version: v1.12.7
 ```
 
 
@@ -235,7 +235,7 @@ And you should get version for your client and server :
 
 ``` bash
 $ kubectl version --short
-Client Version: v1.11.1
+Client Version: v1.12.7
 error: You must be logged in to the server (the server has asked for the client to provide credentials)
 ```
 
