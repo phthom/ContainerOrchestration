@@ -92,7 +92,7 @@ Select **Free** for the cluster type :
 
 Keep **mycluster** as the name of your cluster
 
-The default cluster type is **free**. Next time, you can create a standard cluster and define additional customizations, like how many worker nodes are in the cluster.
+The default cluster type is **standard**. So you have to select the **free** cluster type. Next time, you can create a standard cluster and define additional customizations, like how many worker nodes are in the cluster.
 
 
 ![image-20190118145903795](images/image-20190118145903795-7819943.png)
@@ -139,7 +139,7 @@ Deploy and manage your own Kubernetes cluster in the cloud. You can automate the
 •	Install all the CLIs for using the Kubernetes API and managing Docker images
 •	Create a private image repository in IBM Cloud Container Registry to store your images
 
-It can take 10min utes to provision your cluster. To make the most of your time, create your cluster before installing all the CLIs. 
+It can take 10 minutes to provision your cluster. To make the most of your time, create your cluster before installing all the CLIs. 
 
 On your laptop, you have to prepare your environment to be ready to use Kubernetes and your cluster **mycluster**.
 
@@ -459,7 +459,7 @@ Click on Kubernetes Clusters and then select **"mycluster"** to see the Kubernet
 
 ![image-20190406221758573](images/image-20190406221758573-4581878.png)
 
-> Now go to the Worker Nodes section (on the left pane) and **take a note** of the **public IP of that worker node** :
+> Now go to the Worker Nodes section (on the top part of the screen) and **take a note** of the **public IP of that worker node** :
 
 ![image-20190406221845033](images/image-20190406221845033-4581925.png)
 
